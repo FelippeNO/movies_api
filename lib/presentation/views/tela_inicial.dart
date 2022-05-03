@@ -17,6 +17,7 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
   bool loading = true;
   List<Movie> movies = [];
+  MovieData movie = MovieData(id: 0);
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _TelaInicialState extends State<TelaInicial> {
 
   Future<void> _loadArguments() async {
     movies = await pegarJson();
+    movie = await pegarMovieData(movies[0].id);
     setState(() {});
   }
 
@@ -62,15 +64,13 @@ class _TelaInicialState extends State<TelaInicial> {
               padding: EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  CachedNetworkImage(imageUrl: movies[index].posterUrl.toString()),
+                  // CachedNetworkImage(imageUrl: movies[index].posterUrl.toString()),
                   ListTile(
                     title: Text(
                       movies[index].id.toString(),
                       style: TextStyle(color: Colors.white),
                     ),
-                    subtitle: Text(
-                      movies[index].title.toString(),
-                    ),
+                    subtitle: Text(movie.overview.toString()),
                   )
                 ],
               ),
