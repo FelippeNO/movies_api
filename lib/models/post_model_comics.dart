@@ -1,29 +1,33 @@
-import 'dart:ffi';
-
+import 'package:desafio_tokenlab/core/http_client_base.dart';
 import 'package:flutter/material.dart';
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:async/async.dart';
 
-Future<List<Movie>> pegarJson() async {
-  String baseurl = "https://desafio-mobile.nyc3.digitaloceanspaces.com/movies";
+Future<List<Movie>> getMoviesList() async {
+  final moviesListUri = HttpClientBase("").httpClient();
+  http.Response response = await http.get(moviesListUri);
 
-  final data = Uri.parse(baseurl);
-  http.Response response = await http.get(data);
-
-  final dados = json.decode(response.body).cast<Map<String, dynamic>>();
-  return dados.map<Movie>((json) => Movie.fromJson(json)).toList();
+  if (response.statusCode == 200) {
+    debugPrint("OK!");
+    final movies = json.decode(response.body).cast<Map<String, dynamic>>();
+    return movies.map<Movie>((json) => Movie.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load movies!');
+  }
 }
 
-Future<MovieData> pegarMovieData(int? movieId) async {
-  String baseurl = "https://desafio-mobile.nyc3.digitaloceanspaces.com/movies/" + movieId.toString();
+Future<MovieData> getMovieById(int? movieId) async {
+  String movieIdString = movieId.toString();
+  final movieDataUri = HttpClientBase("/$movieIdString").httpClient();
+  http.Response response = await http.get(movieDataUri);
 
-  final data = Uri.parse(baseurl);
-  http.Response response = await http.get(data);
-  debugPrint(response.body.toString());
-  final dados = json.decode(response.body);
-  return MovieData.fromJson(dados);
+  if (response.statusCode == 200) {
+    debugPrint("OK!");
+    final movie = json.decode(response.body.toString());
+    return MovieData.fromJson(movie);
+  } else {
+    throw Exception('Failed to load movie!');
+  }
 }
 
 class Movie {
@@ -46,13 +50,13 @@ class Movie {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['vote_average'] = this.voteAverage;
-    data['title'] = this.title;
-    data['poster_url'] = this.posterUrl;
-    data['genres'] = this.genres;
-    data['release_date'] = this.releaseDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['vote_average'] = voteAverage;
+    data['title'] = title;
+    data['poster_url'] = posterUrl;
+    data['genres'] = genres;
+    data['release_date'] = releaseDate;
     return data;
   }
 }
@@ -119,25 +123,25 @@ class MovieData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['backdrop_url'] = this.backdropUrl;
-    data['budget'] = this.budget;
-    data['genres'] = this.genres;
-    data['id'] = this.id;
-    data['imdb_id'] = this.imdbId;
-    data['original_language'] = this.originalLanguage;
-    data['original_title'] = this.originalTitle;
-    data['overview'] = this.overview;
-    data['popularity'] = this.popularity;
-    data['poster_url'] = this.posterUrl;
-    data['release_date'] = this.releaseDate;
-    data['revenue'] = this.revenue;
-    data['runtime'] = this.runtime;
-    data['status'] = this.status;
-    data['tagline'] = this.tagline;
-    data['title'] = this.title;
-    data['vote_average'] = this.voteAverage;
-    data['vote_count'] = this.voteCount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['backdrop_url'] = backdropUrl;
+    data['budget'] = budget;
+    data['genres'] = genres;
+    data['id'] = id;
+    data['imdb_id'] = imdbId;
+    data['original_language'] = originalLanguage;
+    data['original_title'] = originalTitle;
+    data['overview'] = overview;
+    data['popularity'] = popularity;
+    data['poster_url'] = posterUrl;
+    data['release_date'] = releaseDate;
+    data['revenue'] = revenue;
+    data['runtime'] = runtime;
+    data['status'] = status;
+    data['tagline'] = tagline;
+    data['title'] = title;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
     return data;
   }
 }

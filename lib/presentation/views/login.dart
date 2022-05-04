@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 20,
           ),
-          BotaoLogin(textoDeLogin: "Login com Facebook", cor: Colors.blue, onPressed: () => {pegarJson()}),
+          BotaoLogin(textoDeLogin: "Login com Facebook", cor: Colors.blue, onPressed: () => {getMoviesList()}),
           SizedBox(
             height: 20,
           ),
