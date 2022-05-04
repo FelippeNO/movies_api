@@ -15,7 +15,8 @@ class Scale {
 }
 
 class AppFontSize {
-  static double s1 = Scale.width(4.5);
+  static double s0 = Scale.width(4.5);
+  static double s1 = Scale.width(4.2);
   static double s2 = Scale.width(3.8);
   static double s3 = Scale.width(3.3);
   static double appBarTitleH1 = Scale.width(6);

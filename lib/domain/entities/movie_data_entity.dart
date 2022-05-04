@@ -1,67 +1,4 @@
-import 'package:desafio_tokenlab/core/http_client_base.dart';
-import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
-Future<List<Movie>> getMoviesList() async {
-  final moviesListUri = HttpClientBase("").httpClient();
-  http.Response response = await http.get(moviesListUri);
-
-  if (response.statusCode == 200) {
-    debugPrint("OK!");
-    final movies = json.decode(response.body).cast<Map<String, dynamic>>();
-    return movies.map<Movie>((json) => Movie.fromJson(json)).toList();
-  } else {
-    throw Exception('Failed to load movies!');
-  }
-}
-
-Future<MovieData> getMovieById(int? movieId) async {
-  String movieIdString = movieId.toString();
-  final movieDataUri = HttpClientBase("/$movieIdString").httpClient();
-  http.Response response = await http.get(movieDataUri);
-
-  if (response.statusCode == 200) {
-    debugPrint("OK!");
-    final movie = json.decode(response.body.toString());
-    return MovieData.fromJson(movie);
-  } else {
-    throw Exception('Failed to load movie!');
-  }
-}
-
-class Movie {
-  int? id;
-  double? voteAverage;
-  String? title;
-  String? posterUrl;
-  List<String>? genres;
-  String? releaseDate;
-
-  Movie({this.id, this.voteAverage, this.title, this.posterUrl, this.genres, this.releaseDate});
-
-  Movie.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    voteAverage = json['vote_average'];
-    title = json['title'];
-    posterUrl = json['poster_url'];
-    genres = json['genres'].cast<String>();
-    releaseDate = json['release_date'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['vote_average'] = voteAverage;
-    data['title'] = title;
-    data['poster_url'] = posterUrl;
-    data['genres'] = genres;
-    data['release_date'] = releaseDate;
-    return data;
-  }
-}
-
-class MovieData {
+class MovieDataEntity {
   String? backdropUrl;
   int? budget;
   List<String>? genres;
@@ -81,7 +18,7 @@ class MovieData {
   double? voteAverage;
   int? voteCount;
 
-  MovieData(
+  MovieDataEntity(
       {this.backdropUrl,
       this.budget,
       this.genres,
@@ -101,7 +38,7 @@ class MovieData {
       this.voteAverage,
       this.voteCount});
 
-  MovieData.fromJson(Map<String, dynamic> json) {
+  MovieDataEntity.fromJson(Map<String, dynamic> json) {
     backdropUrl = json['backdrop_url'];
     budget = json['budget'];
     genres = json['genres'].cast<String>();

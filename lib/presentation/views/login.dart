@@ -1,5 +1,4 @@
 import 'package:desafio_tokenlab/presentation/views/tela_inicial.dart';
-import 'package:desafio_tokenlab/models/post_model_comics.dart';
 import "package:flutter/material.dart";
 
 class LoginPage extends StatefulWidget {
@@ -76,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(
             height: 20,
           ),
-          BotaoLogin(textoDeLogin: "Login com Facebook", cor: Colors.blue, onPressed: () => {getMoviesList()}),
+          BotaoLogin(textoDeLogin: "Login com Facebook", cor: Colors.blue, onPressed: () => {}),
           SizedBox(
             height: 20,
           ),

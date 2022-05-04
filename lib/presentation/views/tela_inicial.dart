@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:desafio_tokenlab/core/ui/colors.dart';
 import 'package:desafio_tokenlab/core/ui/scale.dart';
-import 'package:desafio_tokenlab/models/post_model_comics.dart';
+import 'package:desafio_tokenlab/domain/entities/movie_data_entity.dart';
+import 'package:desafio_tokenlab/domain/entities/movies_entity.dart';
+import 'package:desafio_tokenlab/presentation/controllers/core_controller.dart';
 import 'package:desafio_tokenlab/presentation/views/detailed_view.dart';
-
+import 'package:desafio_tokenlab/presentation/widgets/rounded_primary_app_bar.dart';
+import 'package:desafio_tokenlab/presentation/widgets/stars_count_widget.dart';
 import "package:flutter/material.dart";
-import 'package:http/http.dart' as http;
-import 'package:async/async.dart';
-
-import 'dart:convert';
 
 class TelaInicial extends StatefulWidget {
   const TelaInicial({Key? key}) : super(key: key);
@@ -18,160 +17,105 @@ class TelaInicial extends StatefulWidget {
 }
 
 class _TelaInicialState extends State<TelaInicial> {
-  bool loading = true;
-  List<Movie> movies = [];
-  MovieData movie = MovieData(id: 0);
+  late List<MovieEntity> movies;
+  MovieDataEntity movie = MovieDataEntity(id: 0);
+  CoreController coreController = CoreController();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _loadArguments());
-  }
-
-  Future<void> _loadArguments() async {
-    movies = await getMoviesList();
-    movie = await getMovieById(movies[0].id);
-    setState(() {});
+    coreController.initialize();
+    movies = CoreController.movies.value;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-            label: "HQs",
-            icon: Icon(Icons.ac_unit_outlined),
-          ),
-          BottomNavigationBarItem(
-            label: "Criadores",
-            icon: Icon(Icons.ac_unit_sharp),
-          ),
-          BottomNavigationBarItem(
-            label: "Personagens",
-            icon: Icon(Icons.ac_unit_outlined),
-          ),
-        ],
+      appBar: RoundedPrimaryAppBar(
+        isHome: true,
+        fontSize: AppFontSize.appBarTitleH1,
       ),
-      appBar: RoundedPrimaryAppBar(isHome: true),
-      body: Container(
-        color: Color.fromRGBO(40, 40, 40, 1),
-        child: ListView.builder(
-          itemCount: movies.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailedView(
-                                  movieId: movies[index].id!,
-                                )),
-                      )
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(8.0),
-                      decoration:
-                          BoxDecoration(color: Colors.black26, borderRadius: BorderRadius.all(Radius.circular(20))),
-                      alignment: Alignment.center,
-                      height: 120,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ListTile(
-                            trailing: Container(
-                              width: 40,
-                              child: CachedNetworkImage(
-                                errorWidget: (context, url, error) => Icon(Icons.error),
-                                imageUrl: movies[index].posterUrl.toString(),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            leading: CircleAvatar(child: Text(movies[index].voteAverage.toString())),
-                            title: Text(
-                              movies[index].title.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            subtitle: Text(
-                                "Release date: " +
-                                    movies[index].releaseDate.toString() +
-                                    "\nGenres: " +
-                                    movies[index].genres!.join(", "),
-                                style: TextStyle(color: Colors.white)),
-                          ),
-                          StarsCount(voteAverage: movies[index].voteAverage!)
-                        ],
-                      ),
+      body: ValueListenableBuilder(
+          valueListenable: coreController.moviesLoading,
+          builder: (context, value, _) {
+            bool isLoading = coreController.moviesLoading.value;
+            return Container(
+              color: Colors.black,
+              child: isLoading == true
+                  ? const Center(child: CircularProgressIndicator())
+                  : Padding(
+                      padding: EdgeInsets.only(top: Scale.width(2)),
+                      child: ValueListenableBuilder(
+                          valueListenable: CoreController.movies,
+                          builder: (context, value, _) {
+                            List<MovieEntity> value = CoreController.movies.value;
+                            return ListView.builder(
+                              itemCount: value.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.all(Scale.width(2)),
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () => {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => DetailedView(
+                                                movieId: value[index].id!,
+                                              ),
+                                            ),
+                                          )
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(Scale.width(2)),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white.withOpacity(0.1),
+                                              borderRadius: BorderRadius.all(Radius.circular(Scale.width(5)))),
+                                          alignment: Alignment.center,
+                                          height: Scale.width(29),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              ListTile(
+                                                trailing: SizedBox(
+                                                  width: Scale.width(10),
+                                                  child: CachedNetworkImage(
+                                                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                                                    imageUrl: value[index].posterUrl.toString(),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                leading: CircleAvatar(child: Text(value[index].voteAverage.toString())),
+                                                title: Text(
+                                                  value[index].title.toString(),
+                                                  style: TextStyle(color: Colors.white, fontSize: AppFontSize.s1),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding: EdgeInsets.only(top: Scale.width(1)),
+                                                  child: Text(
+                                                      "Release date: " +
+                                                          value[index].releaseDate.toString() +
+                                                          "\nGenres: " +
+                                                          value[index].genres!.join(", "),
+                                                      style: TextStyle(color: Colors.white, fontSize: AppFontSize.s3)),
+                                                ),
+                                              ),
+                                              StarsCount(voteAverage: CoreController.movies.value[index].voteAverage!)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }),
                     ),
-                  ),
-                ],
-              ),
             );
-          },
-        ),
-      ),
+          }),
     );
   }
-}
-
-class StarsCount extends StatelessWidget {
-  final double voteAverage;
-
-  StarsCount({Key? key, required this.voteAverage}) : super(key: key);
-
-  final filledStars = Icon(Icons.star_rate, size: 12, color: Colors.yellow);
-  final unfilledStars = Icon(Icons.star_outline, size: 12);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          for (int i = 0; i < 5; i++)
-            if (i * 2 < voteAverage) filledStars else unfilledStars
-        ],
-      ),
-    );
-  }
-}
-
-class RoundedPrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final double fontSize;
-  final bool isHome;
-  final double height;
-
-  const RoundedPrimaryAppBar({
-    Key? key,
-    this.fontSize = 18,
-    this.isHome = false,
-    this.height = 1.2,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      leading: isHome == true ? null : const BackButton(color: AppColors.rollingStone),
-      toolbarHeight: Scale.width(20),
-      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.brVerticalBot8),
-      backgroundColor: Colors.white,
-      centerTitle: true,
-      title: Text(
-        "MOVIES",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: AppColors.rollingStone, fontSize: fontSize, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight * height);
 }
