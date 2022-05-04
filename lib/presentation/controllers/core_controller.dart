@@ -1,7 +1,9 @@
 import 'package:desafio_tokenlab/data/gateways/core_gateway.dart';
 import 'package:desafio_tokenlab/domain/entities/movie_data_entity.dart';
 import 'package:desafio_tokenlab/domain/entities/movies_entity.dart';
+import 'package:desafio_tokenlab/presentation/views/detailed_view.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CoreController {
   late ValueNotifier<MovieDataEntity> movieD = ValueNotifier(MovieDataEntity(id: 0));
@@ -17,5 +19,16 @@ class CoreController {
   Future<void> getMovieByIdService(int movieId) async {
     movieD.value = await CoreGateway.getMovieById(movieId);
     movieLoading.value = false;
+  }
+
+  void handleMovieTap(BuildContext context, int movieId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailedView(
+          movieId: movieId,
+        ),
+      ),
+    );
   }
 }
