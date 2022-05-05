@@ -11,10 +11,11 @@ class StarsCount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: Scale.width(2.4)),
+    return SizedBox(
+      width: Scale.width(15),
+      height: Scale.width(1),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           for (int i = 0; i < 5; i++)
             if (i * 2 < voteAverage) filledStars else unfilledStars

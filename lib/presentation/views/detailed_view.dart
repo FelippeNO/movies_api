@@ -67,7 +67,10 @@ class _DetailedViewState extends State<DetailedView> {
                                       SizedBox(height: Scale.width(5)),
                                       Text(
                                         movie.title!,
-                                        style: TextStyle(fontSize: AppFontSize.appBarTitleH1, color: Colors.white),
+                                        style: TextStyle(
+                                            fontSize: AppFontSize.appBarTitleH1,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Padding(
                                         padding: EdgeInsets.symmetric(vertical: Scale.width(5)),

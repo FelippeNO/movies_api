@@ -55,13 +55,12 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
           padding: EdgeInsets.all(Scale.width(2)),
           decoration: BoxDecoration(color: Colors.white.withOpacity(0.08), borderRadius: AppBorderRadius.brAll5),
           alignment: Alignment.center,
-          height: Scale.width(29),
+          height: Scale.width(32),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ListTile(
                 onTap: () => {coreController.handleMovieTap(context, widget.id), scaleUpScaleDownTile()},
-                onLongPress: () => print(widget.id),
                 enableFeedback: true,
                 trailing: SizedBox(
                   width: Scale.width(10),
@@ -71,7 +70,14 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
                     fit: BoxFit.cover,
                   ),
                 ),
-                leading: CircleAvatar(child: Text(widget.voteAverage.toString())),
+                leading: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CircleAvatar(child: Text(widget.voteAverage.toString())),
+                    SizedBox(height: Scale.width(2)),
+                    StarsCount(voteAverage: widget.voteAverage)
+                  ],
+                ),
                 title: Text(
                   widget.title,
                   style: TextStyle(color: Colors.white, fontSize: AppFontSize.s1),
@@ -82,7 +88,6 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
                       style: TextStyle(color: Colors.white, fontSize: AppFontSize.s3)),
                 ),
               ),
-              StarsCount(voteAverage: widget.voteAverage)
             ],
           ),
         ),
