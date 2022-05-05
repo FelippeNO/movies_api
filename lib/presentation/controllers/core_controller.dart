@@ -1,8 +1,7 @@
-import 'package:desafio_tokenlab/data/gateways/core_gateway.dart';
-import 'package:desafio_tokenlab/domain/entities/movie_data_entity.dart';
-import 'package:desafio_tokenlab/domain/entities/movies_entity.dart';
-import 'package:desafio_tokenlab/presentation/views/detailed_view.dart';
-import 'package:flutter/cupertino.dart';
+import '../../data/gateways/core_gateway.dart';
+import '../../domain/entities/movie_data_entity.dart';
+import '../../domain/entities/movies_entity.dart';
+import '../views/detailed_view.dart';
 import 'package:flutter/material.dart';
 
 class CoreController {

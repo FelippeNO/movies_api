@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:desafio_tokenlab/core/http_client_base.dart';
-import 'package:desafio_tokenlab/domain/entities/movie_data_entity.dart';
-import 'package:desafio_tokenlab/domain/entities/movies_entity.dart';
+import '../../core/http_client_base.dart';
+import '../../domain/entities/movie_data_entity.dart';
+import '../../domain/entities/movies_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

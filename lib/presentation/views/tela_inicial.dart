@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:desafio_tokenlab/core/ui/colors.dart';
-import 'package:desafio_tokenlab/core/ui/scale.dart';
-import 'package:desafio_tokenlab/domain/entities/movie_data_entity.dart';
-import 'package:desafio_tokenlab/domain/entities/movies_entity.dart';
-import 'package:desafio_tokenlab/presentation/controllers/core_controller.dart';
-import 'package:desafio_tokenlab/presentation/views/detailed_view.dart';
-import 'package:desafio_tokenlab/presentation/widgets/primary_movie_tile.dart';
-import 'package:desafio_tokenlab/presentation/widgets/rounded_primary_app_bar.dart';
-import 'package:desafio_tokenlab/presentation/widgets/stars_count_widget.dart';
+import '../../core/ui/colors.dart';
+import '../../core/ui/scale.dart';
+import '../../domain/entities/movie_data_entity.dart';
+import '../../domain/entities/movies_entity.dart';
+import '../controllers/core_controller.dart';
+import 'detailed_view.dart';
+import 'loading_view.dart';
+import '../widgets/primary_movie_tile.dart';
+import '../widgets/rounded_primary_app_bar.dart';
+import '../widgets/stars_count_widget.dart';
 import "package:flutter/material.dart";
+import 'package:intl/intl.dart';
 
 class TelaInicial extends StatefulWidget {
   const TelaInicial({Key? key}) : super(key: key);
@@ -44,7 +46,7 @@ class _TelaInicialState extends State<TelaInicial> {
           return Container(
             color: Colors.black,
             child: isLoading == true
-                ? const Center(child: CircularProgressIndicator())
+                ? LoadingView(message: "Aguarde enquanto seus filmes carregam!")
                 : Padding(
                     padding: EdgeInsets.only(top: Scale.width(2)),
                     child: ValueListenableBuilder(
@@ -65,7 +67,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                         title: value[index].title.toString(),
                                         posterUrl: value[index].posterUrl.toString(),
                                         genres: value[index].genres!.join(", "),
-                                        releaseDate: value[index].releaseDate.toString()),
+                                        releaseDate: value[index].releaseDate!),
                                   ),
                                 ],
                               ),

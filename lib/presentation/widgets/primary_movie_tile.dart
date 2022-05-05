@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:desafio_tokenlab/core/ui/scale.dart';
-import 'package:desafio_tokenlab/presentation/widgets/stars_count_widget.dart';
+import '../../core/ui/scale.dart';
+import 'stars_count_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PrimaryMovieTile extends StatelessWidget {
   double voteAverage;
@@ -21,6 +22,9 @@ class PrimaryMovieTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime releaseDateParsed = DateTime.parse(releaseDate);
+    String releaseDateFormatted = DateFormat.yMMMd().format(releaseDateParsed);
+
     return Container(
       padding: EdgeInsets.all(Scale.width(2)),
       decoration: BoxDecoration(color: Colors.white.withOpacity(0.1), borderRadius: AppBorderRadius.brAll5),
@@ -33,7 +37,7 @@ class PrimaryMovieTile extends StatelessWidget {
             trailing: SizedBox(
               width: Scale.width(10),
               child: CachedNetworkImage(
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                 imageUrl: posterUrl,
                 fit: BoxFit.cover,
               ),
@@ -44,8 +48,8 @@ class PrimaryMovieTile extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: AppFontSize.s1),
             ),
             subtitle: Padding(
-              padding: EdgeInsets.only(top: Scale.width(1)),
-              child: Text("Release date: " + releaseDate + "\nGenres: " + genres,
+              padding: EdgeInsets.only(top: Scale.width(2)),
+              child: Text("Release date: " + releaseDateFormatted + "\nGenres: " + genres,
                   style: TextStyle(color: Colors.white, fontSize: AppFontSize.s3)),
             ),
           ),

@@ -1,4 +1,4 @@
-import 'package:desafio_tokenlab/core/ui/scale.dart';
+import '../../core/ui/scale.dart';
 import 'package:flutter/material.dart';
 
 class StarsCount extends StatelessWidget {
