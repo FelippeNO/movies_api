@@ -15,14 +15,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Marvel",
+      title: "Movies",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
       home: Builder(builder: (BuildContext context) {
         Scale.init(context);
-        return LoginPage();
+        return const LoginPage();
       }),
     );
   }
