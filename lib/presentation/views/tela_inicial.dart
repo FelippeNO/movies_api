@@ -1,16 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import '../../core/ui/colors.dart';
 import '../../core/ui/scale.dart';
 import '../../domain/entities/movie_data_entity.dart';
 import '../../domain/entities/movies_entity.dart';
 import '../controllers/core_controller.dart';
-import 'detailed_view.dart';
 import 'loading_view.dart';
 import '../widgets/primary_movie_tile.dart';
 import '../widgets/rounded_primary_app_bar.dart';
-import '../widgets/stars_count_widget.dart';
 import "package:flutter/material.dart";
-import 'package:intl/intl.dart';
 
 class TelaInicial extends StatefulWidget {
   const TelaInicial({Key? key}) : super(key: key);
@@ -46,7 +41,7 @@ class _TelaInicialState extends State<TelaInicial> {
           return Container(
             color: Colors.black,
             child: isLoading == true
-                ? LoadingView(message: "Aguarde enquanto seus filmes carregam!")
+                ? const LoadingView(message: "Aguarde enquanto seus filmes carregam!")
                 : Padding(
                     padding: EdgeInsets.only(top: Scale.width(2)),
                     child: ValueListenableBuilder(

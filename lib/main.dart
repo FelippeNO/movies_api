@@ -1,11 +1,12 @@
 import 'core/ui/scale.dart';
 import 'presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
