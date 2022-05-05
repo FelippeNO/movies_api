@@ -14,7 +14,7 @@ class TelaInicial extends StatefulWidget {
   _TelaInicialState createState() => _TelaInicialState();
 }
 
-class _TelaInicialState extends State<TelaInicial> {
+class _TelaInicialState extends State<TelaInicial> with TickerProviderStateMixin {
   late List<MovieEntity> movies;
   MovieDataEntity movie = MovieDataEntity(id: 0);
   CoreController coreController = CoreController();
@@ -55,15 +55,13 @@ class _TelaInicialState extends State<TelaInicial> {
                               padding: EdgeInsets.all(Scale.width(2)),
                               child: Column(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () => coreController.handleMovieTap(context, value[index].id!),
-                                    child: PrimaryMovieTile(
-                                        voteAverage: value[index].voteAverage!,
-                                        title: value[index].title.toString(),
-                                        posterUrl: value[index].posterUrl.toString(),
-                                        genres: value[index].genres!.join(", "),
-                                        releaseDate: value[index].releaseDate!),
-                                  ),
+                                  PrimaryMovieTile(
+                                      id: value[index].id!,
+                                      voteAverage: value[index].voteAverage!,
+                                      title: value[index].title.toString(),
+                                      posterUrl: value[index].posterUrl.toString(),
+                                      genres: value[index].genres!.join(", "),
+                                      releaseDate: value[index].releaseDate!),
                                 ],
                               ),
                             );
