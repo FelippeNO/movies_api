@@ -1,11 +1,11 @@
 import '../../data/gateways/core_gateway.dart';
-import '../../domain/entities/movie_data_entity.dart';
-import '../../domain/entities/movies_entity.dart';
+
+import '../../domain/entities/movie_entity.dart';
 import '../views/detailed_view.dart';
 import 'package:flutter/material.dart';
 
 class CoreController {
-  late ValueNotifier<MovieDataEntity> movieD = ValueNotifier(MovieDataEntity(id: 0));
+  late ValueNotifier<MovieEntity> movie = ValueNotifier(MovieEntity(id: 0));
   static late ValueNotifier<List<MovieEntity>> movies = ValueNotifier([]);
   ValueNotifier<bool> movieLoading = ValueNotifier(true);
   ValueNotifier<bool> moviesLoading = ValueNotifier(true);
@@ -16,7 +16,7 @@ class CoreController {
   }
 
   Future<void> getMovieByIdService(int movieId) async {
-    movieD.value = await CoreGateway.getMovieById(movieId);
+    movie.value = await CoreGateway.getMovieById(movieId);
     movieLoading.value = false;
   }
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import '../../core/http_client_base.dart';
-import '../../domain/entities/movie_data_entity.dart';
-import '../../domain/entities/movies_entity.dart';
+
+import '../../domain/entities/movie_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +19,7 @@ class CoreGateway {
     }
   }
 
-  static Future<MovieDataEntity> getMovieById(int? movieId) async {
+  static Future<MovieEntity> getMovieById(int? movieId) async {
     String movieIdString = movieId.toString();
     final movieDataUri = HttpClientBase("/$movieIdString").httpClient();
     http.Response response = await http.get(movieDataUri);
@@ -27,7 +27,7 @@ class CoreGateway {
     if (response.statusCode == 200) {
       debugPrint("OK!");
       final movie = json.decode(response.body.toString());
-      return MovieDataEntity.fromJson(movie);
+      return MovieEntity.fromJson(movie);
     } else {
       throw Exception('Failed to load movie!');
     }

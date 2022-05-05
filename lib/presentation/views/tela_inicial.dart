@@ -1,8 +1,7 @@
 import 'package:desafio_tokenlab/core/ui/colors.dart';
 
 import '../../core/ui/scale.dart';
-import '../../domain/entities/movie_data_entity.dart';
-import '../../domain/entities/movies_entity.dart';
+import '../../domain/entities/movie_entity.dart';
 import '../controllers/core_controller.dart';
 import 'loading_view.dart';
 import '../widgets/primary_movie_tile.dart';
@@ -18,7 +17,6 @@ class TelaInicial extends StatefulWidget {
 
 class _TelaInicialState extends State<TelaInicial> with TickerProviderStateMixin {
   late List<MovieEntity> movies;
-  MovieDataEntity movie = MovieDataEntity(id: 0);
   CoreController coreController = CoreController();
 
   @override

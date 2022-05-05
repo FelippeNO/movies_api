@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:desafio_tokenlab/core/ui/colors.dart';
+import 'package:desafio_tokenlab/domain/entities/movie_entity.dart';
 import '../../core/ui/scale.dart';
-import '../../domain/entities/movie_data_entity.dart';
+
 import '../controllers/core_controller.dart';
 import 'loading_view.dart';
 import '../widgets/rounded_primary_app_bar.dart';
@@ -41,8 +42,8 @@ class _DetailedViewState extends State<DetailedView> {
               decoration: const BoxDecoration(gradient: AppGradients.backgroundGradient),
               child: isLoading == true
                   ? LoadingView(message: "Carregando dados do filme...")
-                  : ValueListenableBuilder<MovieDataEntity>(
-                      valueListenable: coreController.movieD,
+                  : ValueListenableBuilder<MovieEntity>(
+                      valueListenable: coreController.movie,
                       builder: (context, movie, _) {
                         DateTime releaseDateParsed = DateTime.parse(movie.releaseDate!);
                         String releaseDate = DateFormat.yMMMd().format(releaseDateParsed);
