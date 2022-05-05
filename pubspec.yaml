@@ -42,6 +42,7 @@ dependencies:
   sqflite: ^2.0.2+1
   date_format: ^2.0.6
   intl: ^0.17.0
+  extended_image: ^6.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,5 @@
+import 'package:desafio_tokenlab/core/ui/colors.dart';
+
 import '../../core/ui/scale.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,7 @@ class LoadingView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: Scale.width(10)),
                 child: Text(
                   message,
-                  style: TextStyle(fontSize: AppFontSize.s0, color: Colors.red),
+                  style: TextStyle(fontSize: AppFontSize.s0, color: AppColors.goldenYellow),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -26,7 +28,7 @@ class LoadingView extends StatelessWidget {
             SizedBox(
               height: Scale.width(8),
             ),
-            CircularProgressIndicator(color: Colors.red)
+            CircularProgressIndicator(color: AppColors.sangria)
           ],
         ),
       ),

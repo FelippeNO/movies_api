@@ -17,15 +17,15 @@ class RoundedPrimaryAppBar extends StatelessWidget implements PreferredSizeWidge
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: isHome == true ? null : const BackButton(color: AppColors.rollingStone),
+      leading: isHome == true ? null : const BackButton(color: AppColors.goldenYellow),
       toolbarHeight: Scale.width(20),
       shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.brVerticalBot8),
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.sangria,
       centerTitle: true,
       title: Text(
         "MOVIES",
         textAlign: TextAlign.center,
-        style: TextStyle(color: AppColors.rollingStone, fontSize: fontSize, fontWeight: FontWeight.bold),
+        style: TextStyle(color: AppColors.goldenYellow, fontSize: fontSize, fontWeight: FontWeight.bold),
       ),
     );
   }

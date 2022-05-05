@@ -1,3 +1,5 @@
+import 'package:desafio_tokenlab/core/ui/colors.dart';
+
 import '../../core/ui/scale.dart';
 import '../../domain/entities/movie_data_entity.dart';
 import '../../domain/entities/movies_entity.dart';
@@ -31,37 +33,35 @@ class _TelaInicialState extends State<TelaInicial> with TickerProviderStateMixin
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: RoundedPrimaryAppBar(
-        isHome: true,
+        isHome: false,
         fontSize: AppFontSize.appBarTitleH1,
       ),
-      body: ValueListenableBuilder(
+      body: ValueListenableBuilder<bool>(
         valueListenable: coreController.moviesLoading,
-        builder: (context, value, _) {
-          bool isLoading = coreController.moviesLoading.value;
+        builder: (context, isLoading, _) {
           return Container(
-            color: Colors.black,
+            decoration: const BoxDecoration(gradient: AppGradients.backgroundGradient),
             child: isLoading == true
                 ? const LoadingView(message: "Aguarde enquanto seus filmes carregam!")
                 : Padding(
                     padding: EdgeInsets.only(top: Scale.width(2)),
-                    child: ValueListenableBuilder(
+                    child: ValueListenableBuilder<List<MovieEntity>>(
                       valueListenable: CoreController.movies,
-                      builder: (context, value, _) {
-                        List<MovieEntity> value = CoreController.movies.value;
+                      builder: (context, movies, _) {
                         return ListView.builder(
-                          itemCount: value.length,
+                          itemCount: movies.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: EdgeInsets.all(Scale.width(2)),
                               child: Column(
                                 children: [
                                   PrimaryMovieTile(
-                                      id: value[index].id!,
-                                      voteAverage: value[index].voteAverage!,
-                                      title: value[index].title.toString(),
-                                      posterUrl: value[index].posterUrl.toString(),
-                                      genres: value[index].genres!.join(", "),
-                                      releaseDate: value[index].releaseDate!),
+                                      id: movies[index].id!,
+                                      voteAverage: movies[index].voteAverage!,
+                                      title: movies[index].title.toString(),
+                                      posterUrl: movies[index].posterUrl.toString(),
+                                      genres: movies[index].genres!.join(", "),
+                                      releaseDate: movies[index].releaseDate!),
                                 ],
                               ),
                             );

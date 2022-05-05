@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppShadow {
-  static const BoxShadow s1 = BoxShadow(color: Colors.black, blurRadius: 3.0);
+  static BoxShadow s1 =
+      BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 3.0, offset: Offset.zero, spreadRadius: 3);
 }
 
 class AppShadows {
-  static const List<BoxShadow> bs1 = [AppShadow.s1];
+  static List<BoxShadow> bs1 = [AppShadow.s1];
 }

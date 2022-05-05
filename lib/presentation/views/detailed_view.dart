@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:desafio_tokenlab/core/ui/colors.dart';
 import '../../core/ui/scale.dart';
 import '../../domain/entities/movie_data_entity.dart';
 import '../controllers/core_controller.dart';
@@ -33,18 +34,16 @@ class _DetailedViewState extends State<DetailedView> {
         height: 1.0,
         fontSize: AppFontSize.s0,
       ),
-      body: ValueListenableBuilder(
+      body: ValueListenableBuilder<bool>(
           valueListenable: coreController.movieLoading,
-          builder: (context, value, _) {
-            bool isLoading = coreController.movieLoading.value;
+          builder: (context, isLoading, _) {
             return Container(
-              color: Colors.black,
+              decoration: const BoxDecoration(gradient: AppGradients.backgroundGradient),
               child: isLoading == true
                   ? LoadingView(message: "Carregando dados do filme...")
-                  : ValueListenableBuilder(
+                  : ValueListenableBuilder<MovieDataEntity>(
                       valueListenable: coreController.movieD,
-                      builder: (context, value, _) {
-                        MovieDataEntity movie = coreController.movieD.value;
+                      builder: (context, movie, _) {
                         DateTime releaseDateParsed = DateTime.parse(movie.releaseDate!);
                         String releaseDate = DateFormat.yMMMd().format(releaseDateParsed);
                         return ListView(
@@ -58,7 +57,7 @@ class _DetailedViewState extends State<DetailedView> {
                                     gradient: LinearGradient(
                                         begin: Alignment.bottomLeft,
                                         end: Alignment.topRight,
-                                        colors: [Colors.white.withOpacity(0.05), Colors.white.withOpacity(0.21)]),
+                                        colors: [Colors.white.withOpacity(0.02), Colors.white.withOpacity(0.1)]),
                                     borderRadius: BorderRadius.all(Radius.circular(Scale.width(5))),
                                   ),
                                   width: Scale.width(80),
@@ -69,7 +68,7 @@ class _DetailedViewState extends State<DetailedView> {
                                         movie.title!,
                                         style: TextStyle(
                                             fontSize: AppFontSize.appBarTitleH1,
-                                            color: Colors.red,
+                                            color: AppColors.goldenYellow,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Padding(

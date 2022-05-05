@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:desafio_tokenlab/core/ui/colors.dart';
+import 'package:desafio_tokenlab/core/ui/shadows.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -53,7 +55,11 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
         scale: animationController,
         child: Container(
           padding: EdgeInsets.all(Scale.width(2)),
-          decoration: BoxDecoration(color: Colors.white.withOpacity(0.08), borderRadius: AppBorderRadius.brAll5),
+          decoration: BoxDecoration(
+              boxShadow: AppShadows.bs1,
+              border: Border.all(color: Colors.white.withOpacity(0.03), width: Scale.width(0.3)),
+              borderRadius: AppBorderRadius.brAll5,
+              gradient: LinearGradient(colors: [Colors.white.withOpacity(0.05), Colors.white.withOpacity(0.1)])),
           alignment: Alignment.center,
           height: Scale.width(32),
           child: Column(
@@ -80,7 +86,7 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
                 ),
                 title: Text(
                   widget.title,
-                  style: TextStyle(color: Colors.white, fontSize: AppFontSize.s1),
+                  style: TextStyle(color: AppColors.goldenYellow, fontSize: AppFontSize.s1),
                 ),
                 subtitle: Padding(
                   padding: EdgeInsets.only(top: Scale.width(2)),

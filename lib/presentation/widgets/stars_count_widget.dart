@@ -1,3 +1,5 @@
+import 'package:desafio_tokenlab/core/ui/colors.dart';
+
 import '../../core/ui/scale.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +8,7 @@ class StarsCount extends StatelessWidget {
 
   StarsCount({Key? key, required this.voteAverage}) : super(key: key);
 
-  final filledStars = Icon(Icons.star_rate, size: Scale.width(2.7), color: Colors.yellow);
+  final filledStars = Icon(Icons.star_rate, size: Scale.width(2.7), color: AppColors.goldenYellow);
   final unfilledStars = Icon(Icons.star_outline, size: Scale.width(2.7));
 
   @override
