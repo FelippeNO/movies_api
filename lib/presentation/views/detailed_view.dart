@@ -30,6 +30,7 @@ class _DetailedViewState extends State<DetailedView> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: RoundedPrimaryAppBar(
+        height: 1.0,
         fontSize: AppFontSize.s0,
       ),
       body: ValueListenableBuilder(
@@ -49,12 +50,15 @@ class _DetailedViewState extends State<DetailedView> {
                         return ListView(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(top: Scale.width(10)),
+                              padding: EdgeInsets.only(top: Scale.width(5)),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: Scale.width(5)),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.2),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomLeft,
+                                        end: Alignment.topRight,
+                                        colors: [Colors.white.withOpacity(0.05), Colors.white.withOpacity(0.21)]),
                                     borderRadius: BorderRadius.all(Radius.circular(Scale.width(5))),
                                   ),
                                   width: Scale.width(80),
@@ -68,7 +72,7 @@ class _DetailedViewState extends State<DetailedView> {
                                       Padding(
                                         padding: EdgeInsets.symmetric(vertical: Scale.width(5)),
                                         child: SizedBox(
-                                          height: Scale.width(50),
+                                          height: Scale.width(43),
                                           child: CachedNetworkImage(imageUrl: movie.posterUrl!),
                                         ),
                                       ),
