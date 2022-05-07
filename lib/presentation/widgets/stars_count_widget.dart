@@ -1,5 +1,4 @@
-import 'package:desafio_tokenlab/core/ui/colors.dart';
-
+import '../../core/ui/colors.dart';
 import '../../core/ui/scale.dart';
 import 'package:flutter/material.dart';
 

@@ -19,4 +19,11 @@ class AppGradients {
     AppColors.diesel,
     Colors.black,
   ]);
+
+  static LinearGradient backgroundGradientOpacity =
+      LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
+    AppColors.temptress.withOpacity(0.2),
+    AppColors.diesel.withOpacity(0.7),
+    Colors.black.withOpacity(0.7),
+  ]);
 }

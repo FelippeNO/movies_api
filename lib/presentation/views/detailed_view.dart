@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:desafio_tokenlab/core/ui/colors.dart';
-import 'package:desafio_tokenlab/domain/entities/movie_entity.dart';
+import '../../core/network/fakes_url.dart';
+import '../../core/ui/colors.dart';
+import '../../domain/entities/movie_entity.dart';
 import '../../core/ui/scale.dart';
-
 import '../controllers/core_controller.dart';
 import 'loading_view.dart';
 import '../widgets/rounded_primary_app_bar.dart';
@@ -11,8 +11,9 @@ import 'package:intl/intl.dart';
 
 class DetailedView extends StatefulWidget {
   final int movieId;
+  final int index;
 
-  const DetailedView({Key? key, required this.movieId}) : super(key: key);
+  const DetailedView({Key? key, required this.movieId, required this.index}) : super(key: key);
 
   @override
   State<DetailedView> createState() => _DetailedViewState();
@@ -24,11 +25,12 @@ class _DetailedViewState extends State<DetailedView> {
   @override
   void initState() {
     super.initState();
-    coreController.getMovieByIdService(widget.movieId);
+    coreController.getMovieByIdService(widget.movieId, context);
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("BUILDOU 2");
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: RoundedPrimaryAppBar(
@@ -41,7 +43,7 @@ class _DetailedViewState extends State<DetailedView> {
             return Container(
               decoration: const BoxDecoration(gradient: AppGradients.backgroundGradient),
               child: isLoading == true
-                  ? LoadingView(message: "Carregando dados do filme...")
+                  ? const LoadingView(message: "Loading movie data...")
                   : ValueListenableBuilder<MovieEntity>(
                       valueListenable: coreController.movie,
                       builder: (context, movie, _) {
@@ -76,7 +78,11 @@ class _DetailedViewState extends State<DetailedView> {
                                         padding: EdgeInsets.symmetric(vertical: Scale.width(5)),
                                         child: SizedBox(
                                           height: Scale.width(43),
-                                          child: CachedNetworkImage(imageUrl: movie.posterUrl!),
+                                          child: CachedNetworkImage(
+                                            imageUrl: movie.posterUrl!,
+                                            errorWidget: (context, url, error) => Center(
+                                                child: CachedNetworkImage(imageUrl: FakesUrl.fakeUrls[widget.index])),
+                                          ),
                                         ),
                                       ),
                                       Padding(
@@ -133,6 +139,7 @@ class _DetailedViewState extends State<DetailedView> {
   }
 }
 
+//---------------------------------------------------//
 class MetricsTags extends StatelessWidget {
   final String metric;
   final IconData? icon;

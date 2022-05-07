@@ -1,5 +1,3 @@
-import 'package:desafio_tokenlab/core/ui/colors.dart';
-
 import 'core/ui/scale.dart';
 import 'presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Builder(builder: (BuildContext context) {
         Scale.init(context);
-        return const LoginPage();
+        return const LoginView();
       }),
     );
   }

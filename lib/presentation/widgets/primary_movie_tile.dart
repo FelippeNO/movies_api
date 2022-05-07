@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:desafio_tokenlab/core/ui/colors.dart';
-import 'package:desafio_tokenlab/core/ui/shadows.dart';
+import '../../core/network/fakes_url.dart';
+import '../../core/ui/colors.dart';
+import '../../core/ui/shadows.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'package:desafio_tokenlab/presentation/controllers/core_controller.dart';
-
+import '../controllers/core_controller.dart';
 import '../../core/ui/scale.dart';
 import 'stars_count_widget.dart';
 
 class PrimaryMovieTile extends StatefulWidget {
+  final int index;
   final int id;
   final double voteAverage;
   final String title;
@@ -25,6 +25,7 @@ class PrimaryMovieTile extends StatefulWidget {
     required this.posterUrl,
     required this.genres,
     required this.releaseDate,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -50,7 +51,7 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
     final DateTime releaseDateParsed = DateTime.parse(widget.releaseDate);
     final String releaseDateFormatted = DateFormat.yMMMd().format(releaseDateParsed);
     return GestureDetector(
-      onTap: () => {coreController.handleMovieTap(context, widget.id), scaleUpScaleDownTile()},
+      onTap: () => {coreController.handleMovieTap(context, widget.id, widget.index), scaleUpScaleDownTile()},
       child: ScaleTransition(
         scale: animationController,
         child: Container(
@@ -66,12 +67,13 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ListTile(
-                onTap: () => {coreController.handleMovieTap(context, widget.id), scaleUpScaleDownTile()},
+                onTap: () => {coreController.handleMovieTap(context, widget.id, widget.index), scaleUpScaleDownTile()},
                 enableFeedback: true,
                 trailing: SizedBox(
                   width: Scale.width(10),
                   child: CachedNetworkImage(
-                    errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
+                    errorWidget: (context, url, error) =>
+                        Center(child: CachedNetworkImage(imageUrl: FakesUrl.fakeUrls[widget.index])),
                     imageUrl: widget.posterUrl,
                     fit: BoxFit.cover,
                   ),

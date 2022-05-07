@@ -1,5 +1,4 @@
-import 'package:desafio_tokenlab/core/ui/colors.dart';
-
+import '../../core/ui/colors.dart';
 import '../../core/ui/scale.dart';
 import '../../domain/entities/movie_entity.dart';
 import '../controllers/core_controller.dart';
@@ -8,26 +7,27 @@ import '../widgets/primary_movie_tile.dart';
 import '../widgets/rounded_primary_app_bar.dart';
 import "package:flutter/material.dart";
 
-class TelaInicial extends StatefulWidget {
-  const TelaInicial({Key? key}) : super(key: key);
+class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  _TelaInicialState createState() => _TelaInicialState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _TelaInicialState extends State<TelaInicial> with TickerProviderStateMixin {
+class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   late List<MovieEntity> movies;
   CoreController coreController = CoreController();
 
   @override
   void initState() {
     super.initState();
-    coreController.initialize();
+    coreController.initialize(context);
     movies = CoreController.movies.value;
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("BUILDOU 1");
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: RoundedPrimaryAppBar(
@@ -40,7 +40,7 @@ class _TelaInicialState extends State<TelaInicial> with TickerProviderStateMixin
           return Container(
             decoration: const BoxDecoration(gradient: AppGradients.backgroundGradient),
             child: isLoading == true
-                ? const LoadingView(message: "Aguarde enquanto seus filmes carregam!")
+                ? const LoadingView(message: "Loading movies list...")
                 : Padding(
                     padding: EdgeInsets.only(top: Scale.width(2)),
                     child: ValueListenableBuilder<List<MovieEntity>>(
@@ -54,6 +54,7 @@ class _TelaInicialState extends State<TelaInicial> with TickerProviderStateMixin
                               child: Column(
                                 children: [
                                   PrimaryMovieTile(
+                                      index: index,
                                       id: movies[index].id!,
                                       voteAverage: movies[index].voteAverage!,
                                       title: movies[index].title.toString(),
