@@ -1,4 +1,4 @@
-import '../../../core/error_handling/core_success.dart';
+import '../../../core_module/error_handling/core_success.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
 import 'package:flutter/material.dart';
 
