@@ -22,6 +22,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    Scale.init(context);
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(

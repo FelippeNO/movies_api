@@ -1,30 +1,30 @@
-import 'core/ui/scale.dart';
-import 'presentation/views/login_view.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import 'global_module.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const Core());
 }
 
-class _MyAppState extends State<MyApp> {
+class Core extends StatelessWidget {
+  const Core({super.key});
+
+  static final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Movies",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        primarySwatch: Colors.red,
+    return ModularApp(
+      module: GlobalModule(),
+      child: MaterialApp.router(
+        scaffoldMessengerKey: rootScaffoldMessengerKey,
+        title: 'Movies',
+        theme: ThemeData(useMaterial3: true),
+        supportedLocales: const [Locale('en', '')],
+        routeInformationParser: Modular.routeInformationParser,
+        routerDelegate: Modular.routerDelegate,
       ),
-      home: Builder(builder: (BuildContext context) {
-        Scale.init(context);
-        return const LoginView();
-      }),
     );
   }
 }
