@@ -9,3 +9,11 @@ class CoreException implements Exception {
 class GetBadRequisitionException extends CoreException {
   GetBadRequisitionException(StackTrace stackTrace, String label, exception) : super(stackTrace, label, exception);
 }
+
+class GetFromCacheException extends CoreException {
+  GetFromCacheException(StackTrace stackTrace, String label, exception) : super(stackTrace, label, exception);
+}
+
+class SaveToCacheException extends CoreException {
+  SaveToCacheException(super.stackTrace, super.label, super.exception);
+}

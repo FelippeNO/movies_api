@@ -1,4 +1,5 @@
 import '../../../core_module/error_handling/core_success.dart';
+import '../../../core_module/internal_storage/base_caching.dart';
 import '../../domain/entities/movie_entity.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,10 @@ abstract class ICachedMovieGateway {
 }
 
 class CachedMovieGateway implements ICachedMovieGateway {
+  final BaseCaching _baseCaching;
+
+  CachedMovieGateway(this._baseCaching);
+
   static Future<bool> connectionState() async {
     try {
       final result = await InternetAddress.lookup('google.com');

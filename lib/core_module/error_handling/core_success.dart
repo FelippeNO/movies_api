@@ -4,3 +4,5 @@ class CoreSuccess extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class SaveToCacheSuccess extends CoreSuccess {}
