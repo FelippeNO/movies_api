@@ -18,6 +18,7 @@ class _MyAppState extends State<MyApp> {
       title: "Movies",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.red,
       ),
       home: Builder(builder: (BuildContext context) {

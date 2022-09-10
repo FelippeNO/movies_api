@@ -44,6 +44,9 @@ dependencies:
   intl: ^0.17.0
   extended_image: ^6.0.3
   shared_preferences: ^2.0.13
+  dartz: ^0.10.1
+  flutter_modular: ^5.0.3
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
