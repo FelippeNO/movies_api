@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/network/http_client_base.dart';
-import '../../domain/entities/movie_entity.dart';
+import '../../movie_module/entities/movie_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
