@@ -1,5 +1,5 @@
-import '../../core_module/ui/colors.dart';
-import '../../core_module/ui/scale.dart';
+import '../../../core_module/ui/colors.dart';
+import '../../../core_module/ui/scale.dart';
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {

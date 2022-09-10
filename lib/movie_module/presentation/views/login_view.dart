@@ -1,6 +1,6 @@
-import '../../core_module/ui/colors.dart';
-import '../../core_module/ui/scale.dart';
-import '../../movie_module/data/gateways/movie_gateway.dart';
+import '../../../core_module/ui/colors.dart';
+import '../../../core_module/ui/scale.dart';
+import '../../data/gateways/movie_gateway.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/login_button.dart';
 import 'home_view.dart';

@@ -1,6 +1,6 @@
 import '../widgets/connection_snack_bar.dart';
-import '../../movie_module/data/gateways/movie_gateway.dart';
-import '../../movie_module/domain/entities/movie_snapshot_entity.dart';
+import '../../data/gateways/movie_gateway.dart';
+import '../../domain/entities/movie_snapshot_entity.dart';
 import '../views/detailed_view.dart';
 import 'package:flutter/material.dart';
 

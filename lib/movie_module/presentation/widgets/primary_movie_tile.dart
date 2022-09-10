@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../core_module/network/fakes_url.dart';
-import '../../core_module/ui/colors.dart';
-import '../../core_module/ui/shadows.dart';
+import '../../../core_module/network/fakes_url.dart';
+import '../../../core_module/ui/colors.dart';
+import '../../../core_module/ui/shadows.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controllers/core_controller.dart';
-import '../../core_module/ui/scale.dart';
+import '../../../core_module/ui/scale.dart';
 import 'stars_count_widget.dart';
 
 class PrimaryMovieTile extends StatefulWidget {

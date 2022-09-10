@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core_module/ui/colors.dart';
+import '../../../core_module/ui/colors.dart';
 
 class ConnectionSnackBar extends SnackBar {
   const ConnectionSnackBar({Key? key})

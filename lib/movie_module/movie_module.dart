@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../presentation/views/login_view.dart';
+import 'presentation/views/login_view.dart';
 
 class MovieModule extends Module {
   @override

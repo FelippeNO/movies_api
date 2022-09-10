@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../core_module/network/fakes_url.dart';
-import '../../core_module/ui/colors.dart';
-import '../../movie_module/domain/entities/movie_snapshot_entity.dart';
-import '../../core_module/ui/scale.dart';
+import '../../../core_module/network/fakes_url.dart';
+import '../../../core_module/ui/colors.dart';
+import '../../domain/entities/movie_snapshot_entity.dart';
+import '../../../core_module/ui/scale.dart';
 import '../controllers/core_controller.dart';
 import 'loading_view.dart';
 import '../widgets/rounded_primary_app_bar.dart';
