@@ -5,3 +5,7 @@ class CoreException implements Exception {
     debugPrintStack(label: 'Exception :: $label', stackTrace: stackTrace);
   }
 }
+
+class GetBadRequisitionException extends CoreException {
+  GetBadRequisitionException(StackTrace stackTrace, String label, exception) : super(stackTrace, label, exception);
+}
