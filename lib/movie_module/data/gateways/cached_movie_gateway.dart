@@ -7,7 +7,6 @@ import 'dart:io';
 abstract class ICachedMovieGateway {
   Future<List<MovieSnapshotEntity>> getCachedMoviesSnapshot();
   Future<MovieSnapshotEntity> getCachedMovieById({required int movieId});
-
   Future<CoreSuccess> saveMovieByIdToCache({required int movieId});
   Future<CoreSuccess> saveCachedMoviesSnapshot();
 }
