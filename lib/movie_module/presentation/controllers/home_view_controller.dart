@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:desafio_tokenlab/movie_module/domain/entities/mappers/movie_entity_mapper.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core_module/error_handling/core_success.dart';
 import '../../domain/entities/mappers/movie_snapshot_entity_mapper.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
 import '../../domain/services/get_cached_movies_snapshot_service.dart';
@@ -27,27 +28,42 @@ class HomeViewController extends ChangeNotifier {
 
   void init() async {
     areMoviesLoading.value = true;
-    final serviceRequest = await _getMoviesSnapshotService.call();
-    final result = serviceRequest.fold((l) => l, (r) => r);
-
-    if (result is List<MovieSnapshotEntity>) {
-      _movies = result;
+    bool hasGotFromCache = await _tryGetFromCache();
+    if (hasGotFromCache == false) {
+      await _getMoviesFromApi();
+    } else {
       areMoviesLoading.value = false;
       areMoviesLoading.notifyListeners();
-      //final serviceRequest2 = await _saveCachedMoviesSnapshotService.call(movies: movies);
-
-      // final getRequest = await _getCachedMoviesSnapshotService.call();
-      // final result2 = serviceRequest.fold((l) => l, (r) => r);
-      // if (result2 is List<MovieSnapshotEntity>) {
-      //   print(result2.length);
-      //   print(result2[0].title);
-      // }
-    } else {
-      //   GeneralSnackBar("Este número não está disponível. Tente outro!", Icons.warning_rounded).show();
-      //   bool isLoadingSignUpLoading = false;
-      //    _signUpButtonIsLoading.sink.add(isLoadingSignUpLoading);
     }
   }
 
-  void tryGetFromCache() async {}
+  Future<bool> _tryGetFromCache() async {
+    final serviceRequest = await _getCachedMoviesSnapshotService.call();
+    final result = serviceRequest.fold((l) => l, (r) => r);
+    if (result is List<MovieSnapshotEntity>) {
+      _movies = result;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> _getMoviesFromApi() async {
+    final serviceRequest = await _getMoviesSnapshotService.call();
+    final result = serviceRequest.fold((l) => l, (r) => r);
+    if (result is List<MovieSnapshotEntity>) {
+      await _saveMoviesToCache(movies: result);
+      _movies = result;
+      areMoviesLoading.value = false;
+      areMoviesLoading.notifyListeners();
+    } else {
+      print("impossivel pegar da api");
+    }
+  }
+
+  Future<bool> _saveMoviesToCache({required List<MovieSnapshotEntity> movies}) async {
+    final serviceRequest = await _saveCachedMoviesSnapshotService(movies: movies);
+    final result = serviceRequest.fold((l) => l, (r) => r);
+    return result is CoreSuccess ? true : false;
+  }
 }

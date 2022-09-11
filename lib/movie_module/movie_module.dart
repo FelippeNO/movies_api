@@ -11,6 +11,7 @@ import 'data/gateways/cached_movie_gateway.dart';
 import 'data/gateways/movie_gateway.dart';
 import 'data/repositories/cached_movie_repository.dart';
 import 'data/repositories/movie_repository.dart';
+import 'domain/services/get_cached_movie_by_id_service.dart';
 import 'domain/services/get_cached_movies_snapshot_service.dart';
 import 'domain/services/get_movie_by_id_service.dart';
 import 'domain/services/get_movies_snapshot_service.dart';
@@ -38,10 +39,11 @@ class MovieModule extends Module {
     Bind.lazySingleton((i) => SaveCachedMoviesSnapshotService(i()), export: true),
     Bind.lazySingleton((i) => GetCachedMoviesSnapshotService(i()), export: true),
     Bind.lazySingleton((i) => SaveMovieToCacheService(i()), export: true),
+    Bind.lazySingleton((i) => GetCachedMovieByIdService(i()), export: true),
 
     /// ------------------------------- State ---------------------------------
     Bind.lazySingleton((i) => HomeViewController(i(), i(), i()), export: true),
-    Bind.lazySingleton((i) => DetailedViewController(i(), i()), export: true),
+    Bind.lazySingleton((i) => DetailedViewController(i(), i(), i()), export: true),
   ];
 
   @override

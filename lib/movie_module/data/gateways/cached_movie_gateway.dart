@@ -79,11 +79,10 @@ class CachedMovieGateway implements ICachedMovieGateway {
   @override
   Future<CoreSuccess> saveMovieToCache({required MovieEntity movie}) async {
     String movieId = movie.id.toString();
-
     try {
       var movieJson = MovieEntityMapper.toJson(movie);
       String encoded = jsonEncode(movieJson);
-      final result = await _baseCaching.saveToCache(key: 'movies/$movieId', value: encoded);
+      final result = await _baseCaching.saveToCache(key: movieId, value: encoded);
       if (result is SaveToCacheSuccess) {
         return SaveCachedMoviesSnapshotSuccess();
       } else {
