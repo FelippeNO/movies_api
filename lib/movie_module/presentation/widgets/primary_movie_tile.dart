@@ -8,7 +8,6 @@ import '../../../core_module/ui/scale.dart';
 import 'stars_count_widget.dart';
 
 class PrimaryMovieTile extends StatefulWidget {
-  final int index;
   final int id;
   final double voteAverage;
   final String title;
@@ -24,7 +23,6 @@ class PrimaryMovieTile extends StatefulWidget {
     required this.posterUrl,
     required this.genres,
     required this.releaseDate,
-    required this.index,
   }) : super(key: key);
 
   @override
@@ -67,7 +65,7 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
                 trailing: SizedBox(
                   width: Scale.width(10),
                   child: CachedNetworkImage(
-                    errorWidget: (context, url, error) => Center(child: CachedNetworkImage(imageUrl: widget.posterUrl)),
+                    errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                     imageUrl: widget.posterUrl,
                     fit: BoxFit.cover,
                   ),
@@ -75,7 +73,10 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleAvatar(child: Text(widget.voteAverage.toString())),
+                    CircleAvatar(
+                      child: Text(widget.voteAverage.toString()),
+                      backgroundColor: Colors.red,
+                    ),
                     SizedBox(height: Scale.width(2)),
                     StarsCount(voteAverage: widget.voteAverage)
                   ],

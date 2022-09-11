@@ -15,20 +15,6 @@ class MovieGateway implements IMovieGateway {
 
   MovieGateway(this._baseHttpClient);
 
-  // static Future<bool> connectionState() async {
-  //   try {
-  //     final result = await InternetAddress.lookup('google.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //       debugPrint("CONNECTED");
-  //       return true;
-  //     }
-  //   } on SocketException catch (_) {
-  //     debugPrint("NOT CONNECTED");
-  //     return false;
-  //   }
-  //   return false;
-  // }
-
   @override
   Future<MovieEntity> getMovieById({required int movieId}) async {
     final movieIdString = movieId.toString();

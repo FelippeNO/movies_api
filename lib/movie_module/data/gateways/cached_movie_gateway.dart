@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:hive/hive.dart';
-
 import '../../../core_module/error_handling/core_success.dart';
 import '../../../core_module/internal_storage/base_caching.dart';
 import '../../domain/entities/mappers/movie_entity_mapper.dart';

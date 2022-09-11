@@ -1,21 +1,20 @@
-import 'dart:convert';
-
-import 'package:desafio_tokenlab/movie_module/domain/entities/mappers/movie_entity_mapper.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core_module/error_handling/core_success.dart';
-import '../../domain/entities/mappers/movie_snapshot_entity_mapper.dart';
+import '../../../core_module/utils/widgets/general_snackbar.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
 import '../../domain/services/get_cached_movies_snapshot_service.dart';
 import '../../domain/services/get_movies_snapshot_service.dart';
 import '../../domain/services/save_cached_movies_snapshot_service.dart';
+
+enum HomeViewState { loading, success, failure }
 
 class HomeViewController extends ChangeNotifier {
   final GetMoviesSnapshotService _getMoviesSnapshotService;
   final SaveCachedMoviesSnapshotService _saveCachedMoviesSnapshotService;
   final GetCachedMoviesSnapshotService _getCachedMoviesSnapshotService;
 
-  ValueNotifier<bool> areMoviesLoading = ValueNotifier<bool>(true);
+  ValueNotifier<HomeViewState> state = ValueNotifier<HomeViewState>(HomeViewState.loading);
   List<MovieSnapshotEntity> _movies = [];
 
   List<MovieSnapshotEntity> get movies => _movies;
@@ -27,13 +26,14 @@ class HomeViewController extends ChangeNotifier {
   );
 
   void init() async {
-    areMoviesLoading.value = true;
+    state.value = HomeViewState.loading;
     bool hasGotFromCache = await _tryGetFromCache();
     if (hasGotFromCache == false) {
       await _getMoviesFromApi();
     } else {
-      areMoviesLoading.value = false;
-      areMoviesLoading.notifyListeners();
+      GeneralSnackBar("Filmes carregados do cachê").show();
+      state.value = HomeViewState.success;
+      state.notifyListeners();
     }
   }
 
@@ -44,6 +44,7 @@ class HomeViewController extends ChangeNotifier {
       _movies = result;
       return true;
     } else {
+      GeneralSnackBar("Não há filmes no cachê, vamos buscar na internet!").show();
       return false;
     }
   }
@@ -54,10 +55,12 @@ class HomeViewController extends ChangeNotifier {
     if (result is List<MovieSnapshotEntity>) {
       await _saveMoviesToCache(movies: result);
       _movies = result;
-      areMoviesLoading.value = false;
-      areMoviesLoading.notifyListeners();
+      state.value = HomeViewState.success;
+      state.notifyListeners();
     } else {
-      print("impossivel pegar da api");
+      state.value = HomeViewState.failure;
+      state.notifyListeners();
+      GeneralSnackBar("Não foi possível pegar filmes da internet!").show();
     }
   }
 

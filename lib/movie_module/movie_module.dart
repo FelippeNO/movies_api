@@ -1,5 +1,4 @@
 import 'package:desafio_tokenlab/core_module/api/base_http_client.dart';
-import 'package:desafio_tokenlab/movie_module/error_handling/exceptions.dart';
 import 'package:desafio_tokenlab/movie_module/presentation/controllers/detailed_view_controller.dart';
 import 'package:desafio_tokenlab/movie_module/presentation/controllers/home_view_controller.dart';
 import 'package:desafio_tokenlab/movie_module/presentation/views/detailed_view.dart';

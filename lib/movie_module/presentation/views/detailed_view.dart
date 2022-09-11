@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../core_module/ui/colors.dart';
-import '../../domain/entities/movie_entity.dart';
-import '../../domain/entities/movie_snapshot_entity.dart';
 import '../../../core_module/ui/scale.dart';
+import '../../../core_module/utils/app_connection_state.dart';
 import '../controllers/detailed_view_controller.dart';
 import 'loading_view.dart';
 import '../widgets/rounded_primary_app_bar.dart';
@@ -22,14 +21,12 @@ class DetailedView extends StatefulWidget {
 }
 
 class _DetailedViewState extends State<DetailedView> {
-//  DateTime releaseDateParsed = DateTime.parse(movie.releaseDate!);
-//                         String releaseDate = DateFormat.yMMMd().format(releaseDateParsed);
-
   final DetailedViewController controller = Modular.get();
 
   @override
   void initState() {
     super.initState();
+    AppConnectionState.check();
     controller.init(movieId: widget.movieId);
   }
 
@@ -79,8 +76,7 @@ class _DetailedViewState extends State<DetailedView> {
                                         height: Scale.width(43),
                                         child: CachedNetworkImage(
                                           imageUrl: controller.movie.posterUrl,
-                                          errorWidget: (context, url, error) =>
-                                              Center(child: CachedNetworkImage(imageUrl: controller.movie.posterUrl)),
+                                          errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                                         ),
                                       ),
                                     ),

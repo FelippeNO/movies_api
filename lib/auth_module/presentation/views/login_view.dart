@@ -1,4 +1,5 @@
 import 'package:desafio_tokenlab/core_module/nav/core_navigator.dart';
+import 'package:desafio_tokenlab/core_module/utils/app_connection_state.dart';
 
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';
@@ -23,6 +24,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     Scale.init(context);
+    AppConnectionState.check();
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(

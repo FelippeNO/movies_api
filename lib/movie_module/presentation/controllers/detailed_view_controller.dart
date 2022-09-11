@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core_module/error_handling/core_success.dart';
+import '../../../core_module/utils/widgets/general_snackbar.dart';
 import '../../domain/entities/movie_entity.dart';
 import '../../domain/services/get_cached_movie_by_id_service.dart';
 import '../../domain/services/get_movie_by_id_service.dart';
@@ -28,6 +29,7 @@ class DetailedViewController extends ChangeNotifier {
     if (hasGotFromCache == false) {
       await _getMovieFromApi(movieId: movieId);
     } else {
+      GeneralSnackBar("Filme carregado do cachê").show();
       isMovieLoading.value = false;
       isMovieLoading.notifyListeners();
     }
@@ -40,6 +42,7 @@ class DetailedViewController extends ChangeNotifier {
       _movie = result;
       return true;
     } else {
+      GeneralSnackBar("Não foi possível pegar o filme do cachê, vamos pegar na internet!").show();
       return false;
     }
   }
@@ -53,7 +56,7 @@ class DetailedViewController extends ChangeNotifier {
       isMovieLoading.value = false;
       isMovieLoading.notifyListeners();
     } else {
-      print("impossivel pegar da api");
+      GeneralSnackBar("Não foi possível pegar o filme da internet!").show();
     }
   }
 
