@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:desafio_tokenlab/movie_module/domain/entities/mappers/movie_entity_mapper.dart';
 import 'package:desafio_tokenlab/movie_module/domain/entities/movie_entity.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 void main() {
   final Map<String, dynamic> tMovieEntityJson = {

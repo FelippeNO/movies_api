@@ -13,11 +13,7 @@ class BaseHttpClient implements IBaseHttpClient {
   Future<Response<dynamic>> getAsync(String routeName) async {
     try {
       var response = await Dio().get(_baseUrl + routeName);
-      if (response.statusCode == 200) {
-        return response;
-      } else {
-        throw GetBadRequisitionException(StackTrace.current, 'BadRequisition.GET', Exception('Status code != 200'));
-      }
+      return response;
     } catch (exception, stacktrace) {
       throw GetBadRequisitionException(stacktrace, 'BadRequisition.GET', exception);
     }

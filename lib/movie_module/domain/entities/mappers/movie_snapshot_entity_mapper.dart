@@ -5,12 +5,12 @@ class MovieSnapshotEntityMapper {
   static MovieSnapshotEntity fromJson(Map<String, dynamic> json) {
     try {
       return MovieSnapshotEntity(
-        id: json[''],
-        voteAverage: json[''],
-        title: json[''],
-        posterUrl: json[''],
-        genres: json[''],
-        releaseDate: json[''],
+        id: json['id'],
+        voteAverage: json['vote_average'],
+        title: json['title'],
+        posterUrl: json['poster_url'],
+        genres: json['genres'].cast<String>(),
+        releaseDate: json['release_date'],
       );
     } catch (exception, stacktrace) {
       throw JsonParsingException(
