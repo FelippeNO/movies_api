@@ -1,4 +1,4 @@
-import 'package:desafio_tokenlab/movie_module/movie_module.dart';
+import 'movie_module/movie_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'auth_module/auth_module.dart';

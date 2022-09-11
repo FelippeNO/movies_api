@@ -1,5 +1,5 @@
-import 'package:desafio_tokenlab/core_module/nav/core_navigator.dart';
-import 'package:desafio_tokenlab/core_module/utils/app_connection_state.dart';
+import '../../../core_module/nav/core_navigator.dart';
+import '../../../core_module/utils/app_connection_state.dart';
 
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';

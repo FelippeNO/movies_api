@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
+
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';
 import '../../../core_module/utils/app_connection_state.dart';
 import '../controllers/detailed_view_controller.dart';
-import 'loading_view.dart';
 import '../widgets/rounded_primary_app_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'loading_view.dart';
 
 class DetailedView extends StatefulWidget {
   final int movieId;

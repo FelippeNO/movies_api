@@ -1,7 +1,7 @@
-import 'package:desafio_tokenlab/movie_module/data/gateways/movie_gateway.dart';
-import 'package:desafio_tokenlab/movie_module/domain/entities/movie_snapshot_entity.dart';
+import '../gateways/movie_gateway.dart';
+import '../../domain/entities/movie_snapshot_entity.dart';
 
-import 'package:desafio_tokenlab/core_module/error_handling/core_failure.dart';
+import '../../../core_module/error_handling/core_failure.dart';
 
 import 'package:dartz/dartz.dart';
 

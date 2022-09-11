@@ -1,4 +1,4 @@
-import 'package:desafio_tokenlab/movie_module/domain/entities/movie_entity.dart';
+import '../movie_entity.dart';
 import '../../../../core_module/utils/proxier.dart';
 
 class ProxyMovieEntity {

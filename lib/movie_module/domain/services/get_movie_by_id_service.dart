@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:desafio_tokenlab/movie_module/domain/entities/movie_entity.dart';
+import '../entities/movie_entity.dart';
 
 import '../../../core_module/error_handling/core_failure.dart';
 import '../i_repositories/i_movie_repository.dart';

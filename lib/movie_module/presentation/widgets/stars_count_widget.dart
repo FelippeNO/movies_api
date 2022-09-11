@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';
-import 'package:flutter/material.dart';
 
 class StarsCount extends StatelessWidget {
   final double voteAverage;

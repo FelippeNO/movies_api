@@ -1,6 +1,6 @@
-import 'package:desafio_tokenlab/movie_module/domain/entities/movie_snapshot_entity.dart';
+import '../../../domain/entities/movie_snapshot_entity.dart';
 
-import 'package:desafio_tokenlab/core_module/error_handling/core_success.dart';
+import '../../../../core_module/error_handling/core_success.dart';
 
 import '../../../domain/entities/movie_entity.dart';
 import '../../../domain/entities/proxy/proxy_movie_entity.dart';

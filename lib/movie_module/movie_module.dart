@@ -1,8 +1,8 @@
-import 'package:desafio_tokenlab/core_module/api/base_http_client.dart';
-import 'package:desafio_tokenlab/movie_module/presentation/controllers/detailed_view_controller.dart';
-import 'package:desafio_tokenlab/movie_module/presentation/controllers/home_view_controller.dart';
-import 'package:desafio_tokenlab/movie_module/presentation/views/detailed_view.dart';
-import 'package:desafio_tokenlab/movie_module/presentation/views/home_view.dart';
+import '../core_module/api/base_http_client.dart';
+import 'presentation/controllers/detailed_view_controller.dart';
+import 'presentation/controllers/home_view_controller.dart';
+import 'presentation/views/detailed_view.dart';
+import 'presentation/views/home_view.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../core_module/internal_storage/base_caching.dart';

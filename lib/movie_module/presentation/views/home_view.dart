@@ -1,4 +1,4 @@
-import 'package:desafio_tokenlab/movie_module/presentation/controllers/home_view_controller.dart';
+import '../controllers/home_view_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core_module/ui/colors.dart';

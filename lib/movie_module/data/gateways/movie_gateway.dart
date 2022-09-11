@@ -1,6 +1,6 @@
-import 'package:desafio_tokenlab/movie_module/domain/entities/mappers/movie_entity_mapper.dart';
-import 'package:desafio_tokenlab/movie_module/domain/entities/movie_entity.dart';
-import 'package:desafio_tokenlab/movie_module/error_handling/exceptions.dart';
+import '../../domain/entities/mappers/movie_entity_mapper.dart';
+import '../../domain/entities/movie_entity.dart';
+import '../../error_handling/exceptions.dart';
 import '../../../core_module/api/base_http_client.dart';
 import '../../domain/entities/mappers/movie_snapshot_entity_mapper.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
