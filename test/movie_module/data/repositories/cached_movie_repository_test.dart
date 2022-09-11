@@ -64,21 +64,20 @@ void main() {
     });
   });
 
-  group('CachedMovieRepository.saveMovieByIdToCache', () {
+  group('CachedMovieRepository.saveMovieToCache', () {
     test('Should return a Success on success', () async {
-      when(() => gateway.saveMovieByIdToCache(movieId: tMovieId))
-          .thenAnswer((_) async => SaveMovieByIdToCacheSuccess());
-      final result = await repository.saveMovieByIdToCache(movieId: tMovieId);
-      expect(result, Right(SaveMovieByIdToCacheSuccess()));
-      verify(() => gateway.saveMovieByIdToCache(movieId: tMovieId)).called(1);
+      when(() => gateway.saveMovieToCache(movie: tMovieEntity)).thenAnswer((_) async => SaveMovieToCacheSuccess());
+      final result = await repository.saveMovieToCache(movie: tMovieEntity);
+      expect(result, Right(SaveMovieToCacheSuccess()));
+      verify(() => gateway.saveMovieToCache(movie: tMovieEntity)).called(1);
       verifyNoMoreInteractions(gateway);
     });
     test('Should return a SaveMovieByIdToCacheFailure on unsuccess', () async {
-      when(() => gateway.saveMovieByIdToCache(movieId: tMovieId))
-          .thenThrow(SaveMovieByIdToCacheException(StackTrace.empty, '', Exception()));
-      final result = await repository.saveMovieByIdToCache(movieId: tMovieId);
-      expect(result, Left(SaveMovieByIdToCacheFailure()));
-      verify(() => gateway.saveMovieByIdToCache(movieId: tMovieId)).called(1);
+      when(() => gateway.saveMovieToCache(movie: tMovieEntity))
+          .thenThrow(SaveMovieToCacheException(StackTrace.empty, '', Exception()));
+      final result = await repository.saveMovieToCache(movie: tMovieEntity);
+      expect(result, Left(SaveMovieToCacheFailure()));
+      verify(() => gateway.saveMovieToCache(movie: tMovieEntity)).called(1);
       verifyNoMoreInteractions(gateway);
     });
   });

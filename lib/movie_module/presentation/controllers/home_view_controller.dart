@@ -14,7 +14,7 @@ class HomeViewController extends ChangeNotifier {
   final SaveCachedMoviesSnapshotService _saveCachedMoviesSnapshotService;
   final GetCachedMoviesSnapshotService _getCachedMoviesSnapshotService;
 
-  final ValueNotifier<bool> areMoviesLoading = ValueNotifier<bool>(true);
+  ValueNotifier<bool> areMoviesLoading = ValueNotifier<bool>(true);
   List<MovieSnapshotEntity> _movies = [];
 
   List<MovieSnapshotEntity> get movies => _movies;
@@ -26,6 +26,7 @@ class HomeViewController extends ChangeNotifier {
   );
 
   void init() async {
+    areMoviesLoading.value = true;
     final serviceRequest = await _getMoviesSnapshotService.call();
     final result = serviceRequest.fold((l) => l, (r) => r);
 
@@ -33,7 +34,7 @@ class HomeViewController extends ChangeNotifier {
       _movies = result;
       areMoviesLoading.value = false;
       areMoviesLoading.notifyListeners();
-      final serviceRequest2 = await _saveCachedMoviesSnapshotService.call(movies: movies);
+      //final serviceRequest2 = await _saveCachedMoviesSnapshotService.call(movies: movies);
 
       // final getRequest = await _getCachedMoviesSnapshotService.call();
       // final result2 = serviceRequest.fold((l) => l, (r) => r);

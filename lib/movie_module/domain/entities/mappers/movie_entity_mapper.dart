@@ -24,4 +24,27 @@ class MovieEntityMapper {
       );
     }
   }
+
+  static Map<String, dynamic> toJson(MovieEntity entity) {
+    try {
+      final Map<String, dynamic> json = <String, dynamic>{};
+      json['budget'] = entity.budget;
+      json['overview'] = entity.overview;
+      json['popularity'] = entity.popularity;
+      json['vote_count'] = entity.voteCount;
+      json['id'] = entity.id;
+      json['vote_average'] = entity.voteAverage;
+      json['title'] = entity.title;
+      json['poster_url'] = entity.posterUrl;
+      json['genres'] = entity.genres;
+      json['release_date'] = entity.releaseDate;
+      return json;
+    } catch (exception, stacktrace) {
+      throw JsonParsingException(
+        stacktrace,
+        'MovieEntityMapper.toJson',
+        exception,
+      );
+    }
+  }
 }

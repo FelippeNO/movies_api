@@ -44,12 +44,12 @@ class CachedMovieRepository implements ICachedMovieRepository {
   }
 
   @override
-  Future<Either<CoreFailure, CoreSuccess>> saveMovieByIdToCache({required int movieId}) async {
+  Future<Either<CoreFailure, CoreSuccess>> saveMovieToCache({required MovieEntity movie}) async {
     try {
-      final CoreSuccess result = await _gateway.saveMovieByIdToCache(movieId: movieId);
+      final CoreSuccess result = await _gateway.saveMovieToCache(movie: movie);
       return Right(result);
-    } on SaveMovieByIdToCacheException {
-      return Left(SaveMovieByIdToCacheFailure());
+    } on SaveMovieToCacheException {
+      return Left(SaveMovieToCacheFailure());
     }
   }
 }

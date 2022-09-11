@@ -18,7 +18,7 @@ import '../../error_handling/success.dart';
 abstract class ICachedMovieGateway {
   Future<List<MovieSnapshotEntity>> getCachedMoviesSnapshot();
   Future<MovieEntity> getCachedMovieById({required int movieId});
-  Future<CoreSuccess> saveMovieByIdToCache({required int movieId});
+  Future<CoreSuccess> saveMovieToCache({required MovieEntity movie});
   Future<CoreSuccess> saveCachedMoviesSnapshot({required List<MovieSnapshotEntity> movies});
 }
 
@@ -77,9 +77,22 @@ class CachedMovieGateway implements ICachedMovieGateway {
   }
 
   @override
-  Future<CoreSuccess> saveMovieByIdToCache({required int movieId}) {
-    // TODO: implement saveMovieToCache
-    throw UnimplementedError();
+  Future<CoreSuccess> saveMovieToCache({required MovieEntity movie}) async {
+    String movieId = movie.id.toString();
+
+    try {
+      var movieJson = MovieEntityMapper.toJson(movie);
+      String encoded = jsonEncode(movieJson);
+      final result = await _baseCaching.saveToCache(key: 'movies/$movieId', value: encoded);
+      if (result is SaveToCacheSuccess) {
+        return SaveCachedMoviesSnapshotSuccess();
+      } else {
+        throw SaveCachedMoviesSnapshotException(
+            StackTrace.current, 'CachedMovieGateway.saveCachedMoviesSnapshot', "It is not a success");
+      }
+    } catch (exception, stacktrace) {
+      throw SaveCachedMoviesSnapshotException(stacktrace, 'CachedMovieGateway.saveCachedMoviesSnapshot', exception);
+    }
   }
 
   @override

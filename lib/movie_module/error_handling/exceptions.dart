@@ -12,8 +12,8 @@ class GetCachedMovieByIdException extends CoreException {
   GetCachedMovieByIdException(super.stackTrace, super.label, super.exception);
 }
 
-class SaveMovieByIdToCacheException extends CoreException {
-  SaveMovieByIdToCacheException(super.stackTrace, super.label, super.exception);
+class SaveMovieToCacheException extends CoreException {
+  SaveMovieToCacheException(super.stackTrace, super.label, super.exception);
 }
 
 class GetCachedMoviesSnapshotException extends CoreException {

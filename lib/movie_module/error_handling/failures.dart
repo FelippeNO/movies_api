@@ -6,7 +6,7 @@ class GetMoviesSnapshotFailure extends CoreFailure {}
 
 class GetCachedMovieByIdFailure extends CoreFailure {}
 
-class SaveMovieByIdToCacheFailure extends CoreFailure {}
+class SaveMovieToCacheFailure extends CoreFailure {}
 
 class GetCachedMoviesSnapshotFailure extends CoreFailure {}
 

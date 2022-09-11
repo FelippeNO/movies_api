@@ -22,14 +22,14 @@ class ProxyCachedMovieGateway implements ICachedMovieGateway {
   }
 
   @override
-  Future<CoreSuccess> saveCachedMoviesSnapshot() async {
+  Future<CoreSuccess> saveCachedMoviesSnapshot({required List<MovieSnapshotEntity> movies}) async {
     await Future.delayed(const Duration(seconds: 2));
     return SaveCachedMoviesSnapshotSuccess();
   }
 
   @override
-  Future<CoreSuccess> saveMovieByIdToCache({required int movieId}) async {
+  Future<CoreSuccess> saveMovieToCache({required MovieEntity movie}) async {
     await Future.delayed(const Duration(seconds: 2));
-    return SaveMovieByIdToCacheSuccess();
+    return SaveMovieToCacheSuccess();
   }
 }

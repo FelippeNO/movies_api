@@ -6,7 +6,6 @@ import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
 import '../../domain/entities/proxy/proxy_movie_snapshot_entity.dart';
-import '../controllers/core_controller.dart';
 import 'loading_view.dart';
 import '../widgets/primary_movie_tile.dart';
 import '../widgets/rounded_primary_app_bar.dart';

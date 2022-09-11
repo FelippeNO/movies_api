@@ -1,4 +1,5 @@
 import 'package:desafio_tokenlab/core_module/api/base_http_client.dart';
+import 'package:desafio_tokenlab/movie_module/error_handling/exceptions.dart';
 import 'package:desafio_tokenlab/movie_module/presentation/controllers/detailed_view_controller.dart';
 import 'package:desafio_tokenlab/movie_module/presentation/controllers/home_view_controller.dart';
 import 'package:desafio_tokenlab/movie_module/presentation/views/detailed_view.dart';
@@ -14,6 +15,7 @@ import 'domain/services/get_cached_movies_snapshot_service.dart';
 import 'domain/services/get_movie_by_id_service.dart';
 import 'domain/services/get_movies_snapshot_service.dart';
 import 'domain/services/save_cached_movies_snapshot_service.dart';
+import 'domain/services/save_movie_to_cache_service.dart';
 
 class MovieModule extends Module {
   @override
@@ -35,10 +37,11 @@ class MovieModule extends Module {
     Bind.lazySingleton((i) => GetMoviesSnapshotService(i()), export: true),
     Bind.lazySingleton((i) => SaveCachedMoviesSnapshotService(i()), export: true),
     Bind.lazySingleton((i) => GetCachedMoviesSnapshotService(i()), export: true),
+    Bind.lazySingleton((i) => SaveMovieToCacheService(i()), export: true),
 
     /// ------------------------------- State ---------------------------------
     Bind.lazySingleton((i) => HomeViewController(i(), i(), i()), export: true),
-    Bind.lazySingleton((i) => DetailedViewController(i()), export: true),
+    Bind.lazySingleton((i) => DetailedViewController(i(), i()), export: true),
   ];
 
   @override

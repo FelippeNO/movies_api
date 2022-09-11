@@ -4,7 +4,6 @@ import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/shadows.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../controllers/core_controller.dart';
 import '../../../core_module/ui/scale.dart';
 import 'stars_count_widget.dart';
 
@@ -52,8 +51,7 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
     final String releaseDateFormatted = DateFormat.yMMMd().format(releaseDateParsed);
     return GestureDetector(
       onTap: () {
-        print("foi");
-        CoreNavigator.movie.goToDetailedView(movieId: 111);
+        CoreNavigator.movie.goToDetailedView(movieId: widget.id);
       },
       child: ScaleTransition(
         scale: animationController,
