@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:desafio_tokenlab/movie_module/domain/entities/mappers/movie_entity_mapper.dart';
 import 'package:desafio_tokenlab/movie_module/domain/entities/movie_entity.dart';
 import 'package:desafio_tokenlab/movie_module/error_handling/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,7 @@ abstract class IMovieGateway {
 }
 
 class MovieGateway implements IMovieGateway {
-  final BaseHttpClient _baseHttpClient;
+  final IBaseHttpClient _baseHttpClient;
 
   MovieGateway(this._baseHttpClient);
 
@@ -40,10 +41,10 @@ class MovieGateway implements IMovieGateway {
     final movieIdString = movieId.toString();
     try {
       final result = await _baseHttpClient.getAsync("/$movieIdString");
-      if (result.data != null) {
-        print(result.data);
+      if (result.statusCode != 200) {
+        throw GetMovieByIdException(StackTrace.current, 'MovieGateway.getMovieById', "StatusCode =! 200");
       }
-      return ProxyMovieEntity.generateSingle();
+      return MovieEntityMapper.fromJson(result.data);
     } catch (exception, stacktrace) {
       throw GetMovieByIdException(stacktrace, 'MovieGateway.getMovieById', exception);
     }
