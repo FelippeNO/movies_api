@@ -17,3 +17,7 @@ class GetFromCacheException extends CoreException {
 class SaveToCacheException extends CoreException {
   SaveToCacheException(super.stackTrace, super.label, super.exception);
 }
+
+class JsonParsingException extends CoreException {
+  JsonParsingException(super.stackTrace, super.label, super.exception);
+}
