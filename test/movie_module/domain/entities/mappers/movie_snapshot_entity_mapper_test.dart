@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:desafio_tokenlab/movie_module/domain/entities/mappers/movie_snapshot_entity_mapper.dart';
 import 'package:desafio_tokenlab/movie_module/domain/entities/movie_snapshot_entity.dart';
+import 'package:desafio_tokenlab/movie_module/domain/entities/proxy/proxy_movie_snapshot_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() {
   final List<Map<String, dynamic>> tMovieSnapshotListJson = [
@@ -176,5 +180,21 @@ void main() {
     expect(list.first.id, 19404);
     expect(list.last.releaseDate, "1988-11-17");
     expect(list, isA<List<MovieSnapshotEntity>>());
+
+    // Hive.init('path');
+    // var box = await Hive.openBox('test');
+    // final movies = ProxyMovieSnapshotEntity.generateList();
+
+    // var lol = movies.map((e) => MovieSnapshotEntityMapper.toJson(e)).toList();
+    // String encoded = jsonEncode(lol);
+    // final serviceRequest2 = box.put('movie', encoded);
+
+    // var response = box.get('movie');
+    // var list = jsonDecode(response) as List;
+    //var bring = MovieSnapshotEntityMapper.fromJson(list);
+
+    // (list).map((movieSnapshot) => MovieSnapshotEntityMapper.fromJson(movieSnapshot)).toList();
+
+    //print(bring.id);
   });
 }

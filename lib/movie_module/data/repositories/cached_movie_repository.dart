@@ -34,9 +34,9 @@ class CachedMovieRepository implements ICachedMovieRepository {
   }
 
   @override
-  Future<Either<CoreFailure, CoreSuccess>> saveCachedMoviesSnapshot() async {
+  Future<Either<CoreFailure, CoreSuccess>> saveCachedMoviesSnapshot({required List<MovieSnapshotEntity> movies}) async {
     try {
-      final CoreSuccess result = await _gateway.saveCachedMoviesSnapshot();
+      final CoreSuccess result = await _gateway.saveCachedMoviesSnapshot(movies: movies);
       return Right(result);
     } on SaveCachedMoviesSnapshotException {
       return Left(SaveCachedMoviesSnapshotFailure());

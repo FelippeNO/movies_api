@@ -1,4 +1,5 @@
 import 'package:desafio_tokenlab/core_module/nav/core_navigator.dart';
+import 'package:hive/hive.dart';
 
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';
@@ -61,7 +62,15 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 LoginButton(
                   text: "Login",
-                  onPressed: () => CoreNavigator.movie.goToHomeView(),
+                  onPressed: () async {
+                    CoreNavigator.movie.goToHomeView();
+                    //  var box2 = Hive.box('xxx');
+                    //box2.put("oi", "amor");
+                    //   print(box2.get("oi"));
+                    // box3.put("a", "b");
+                    // print(box2.get("a"));
+                    // print(fasdf);
+                  },
                 ),
               ],
             ),

@@ -85,18 +85,19 @@ void main() {
 
   group('CachedMovieRepository.saveCachedMoviesSnapshot', () {
     test('Should return a Success on success', () async {
-      when(() => gateway.saveCachedMoviesSnapshot()).thenAnswer((_) async => SaveCachedMoviesSnapshotSuccess());
-      final result = await repository.saveCachedMoviesSnapshot();
+      when(() => gateway.saveCachedMoviesSnapshot(movies: tMovies))
+          .thenAnswer((_) async => SaveCachedMoviesSnapshotSuccess());
+      final result = await repository.saveCachedMoviesSnapshot(movies: tMovies);
       expect(result, Right(SaveCachedMoviesSnapshotSuccess()));
-      verify(() => gateway.saveCachedMoviesSnapshot()).called(1);
+      verify(() => gateway.saveCachedMoviesSnapshot(movies: tMovies)).called(1);
       verifyNoMoreInteractions(gateway);
     });
     test('Should return a SaveCachedMoviesSnapshotFailure on unsuccess', () async {
-      when(() => gateway.saveCachedMoviesSnapshot())
+      when(() => gateway.saveCachedMoviesSnapshot(movies: tMovies))
           .thenThrow(SaveCachedMoviesSnapshotException(StackTrace.empty, '', Exception()));
-      final result = await repository.saveCachedMoviesSnapshot();
+      final result = await repository.saveCachedMoviesSnapshot(movies: tMovies);
       expect(result, Left(SaveCachedMoviesSnapshotFailure()));
-      verify(() => gateway.saveCachedMoviesSnapshot()).called(1);
+      verify(() => gateway.saveCachedMoviesSnapshot(movies: tMovies)).called(1);
       verifyNoMoreInteractions(gateway);
     });
   });

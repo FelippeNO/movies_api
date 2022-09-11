@@ -65,7 +65,7 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
               borderRadius: AppBorderRadius.brAll5,
               gradient: LinearGradient(colors: [Colors.white.withOpacity(0.05), Colors.white.withOpacity(0.1)])),
           alignment: Alignment.center,
-          height: Scale.width(32),
+          height: Scale.width(39),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

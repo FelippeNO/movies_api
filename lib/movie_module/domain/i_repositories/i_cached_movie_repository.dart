@@ -9,5 +9,5 @@ abstract class ICachedMovieRepository {
   Future<Either<CoreFailure, List<MovieSnapshotEntity>>> getCachedMoviesSnapshot();
   Future<Either<CoreFailure, MovieEntity>> getCachedMovieById({required int movieId});
   Future<Either<CoreFailure, CoreSuccess>> saveMovieByIdToCache({required int movieId});
-  Future<Either<CoreFailure, CoreSuccess>> saveCachedMoviesSnapshot();
+  Future<Either<CoreFailure, CoreSuccess>> saveCachedMoviesSnapshot({required List<MovieSnapshotEntity> movies});
 }

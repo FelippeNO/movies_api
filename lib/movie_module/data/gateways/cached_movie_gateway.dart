@@ -1,20 +1,29 @@
+import 'dart:convert';
+
+import 'package:hive/hive.dart';
+
 import '../../../core_module/error_handling/core_success.dart';
 import '../../../core_module/internal_storage/base_caching.dart';
+import '../../domain/entities/mappers/movie_entity_mapper.dart';
+import '../../domain/entities/mappers/movie_snapshot_entity_mapper.dart';
 import '../../domain/entities/movie_entity.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:io';
 
+import '../../error_handling/exceptions.dart';
+import '../../error_handling/success.dart';
+
 abstract class ICachedMovieGateway {
   Future<List<MovieSnapshotEntity>> getCachedMoviesSnapshot();
   Future<MovieEntity> getCachedMovieById({required int movieId});
   Future<CoreSuccess> saveMovieByIdToCache({required int movieId});
-  Future<CoreSuccess> saveCachedMoviesSnapshot();
+  Future<CoreSuccess> saveCachedMoviesSnapshot({required List<MovieSnapshotEntity> movies});
 }
 
 class CachedMovieGateway implements ICachedMovieGateway {
-  final BaseCaching _baseCaching;
+  final IBaseCaching _baseCaching;
 
   CachedMovieGateway(this._baseCaching);
 
@@ -33,15 +42,38 @@ class CachedMovieGateway implements ICachedMovieGateway {
   }
 
   @override
-  Future<List<MovieSnapshotEntity>> getCachedMoviesSnapshot() {
-    // TODO: implement getCachedMoviesSnapshot
-    throw UnimplementedError();
+  Future<List<MovieSnapshotEntity>> getCachedMoviesSnapshot() async {
+    try {
+      final result = await _baseCaching.getFromCache('movies');
+      if (result.isNotEmpty) {
+        var mapList = jsonDecode(result) as List;
+        return (mapList).map((movieSnapshot) {
+          return MovieSnapshotEntityMapper.fromJson(movieSnapshot);
+        }).toList();
+      } else {
+        throw GetCachedMoviesSnapshotException(
+            StackTrace.current, 'CachedMovieGateway.getCachedMoviesSnapshot', "String is empty");
+      }
+    } catch (exception, stacktrace) {
+      throw GetCachedMoviesSnapshotException(stacktrace, 'CachedMovieGateway.getCachedMoviesSnapshot', exception);
+    }
   }
 
   @override
-  Future<CoreSuccess> saveCachedMoviesSnapshot() {
-    // TODO: implement saveCachedMoviesSnapshot
-    throw UnimplementedError();
+  Future<CoreSuccess> saveCachedMoviesSnapshot({required List<MovieSnapshotEntity> movies}) async {
+    try {
+      var movieList = movies.map((e) => MovieSnapshotEntityMapper.toJson(e)).toList();
+      String encoded = jsonEncode(movieList);
+      final result = await _baseCaching.saveToCache(key: 'movies', value: encoded);
+      if (result is SaveToCacheSuccess) {
+        return SaveCachedMoviesSnapshotSuccess();
+      } else {
+        throw SaveCachedMoviesSnapshotException(
+            StackTrace.current, 'CachedMovieGateway.saveCachedMoviesSnapshot', "It is not a success");
+      }
+    } catch (exception, stacktrace) {
+      throw SaveCachedMoviesSnapshotException(stacktrace, 'CachedMovieGateway.saveCachedMoviesSnapshot', exception);
+    }
   }
 
   @override
@@ -51,8 +83,17 @@ class CachedMovieGateway implements ICachedMovieGateway {
   }
 
   @override
-  Future<MovieEntity> getCachedMovieById({required int movieId}) {
-    // TODO: implement getCachedMovieById
-    throw UnimplementedError();
+  Future<MovieEntity> getCachedMovieById({required int movieId}) async {
+    final movieIdString = movieId.toString();
+    try {
+      final result = await _baseCaching.getFromCache(movieIdString);
+      if (result.isEmpty) {
+        throw GetCachedMovieByIdException(StackTrace.current, 'CachedMovieGateway.getCachedMovieById', "It is empty");
+      }
+      final encodedString = jsonDecode(result);
+      return MovieEntityMapper.fromJson(encodedString);
+    } catch (exception, stacktrace) {
+      throw GetCachedMovieByIdException(stacktrace, 'CachedMovieGateway.getCachedMovieById', exception);
+    }
   }
 }
