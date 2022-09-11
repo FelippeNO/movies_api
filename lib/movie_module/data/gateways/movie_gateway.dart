@@ -2,6 +2,7 @@ import 'package:desafio_tokenlab/movie_module/domain/entities/mappers/movie_enti
 import 'package:desafio_tokenlab/movie_module/domain/entities/movie_entity.dart';
 import 'package:desafio_tokenlab/movie_module/error_handling/exceptions.dart';
 import '../../../core_module/api/base_http_client.dart';
+import '../../domain/entities/mappers/movie_snapshot_entity_mapper.dart';
 import '../../domain/entities/movie_snapshot_entity.dart';
 
 abstract class IMovieGateway {
@@ -43,8 +44,15 @@ class MovieGateway implements IMovieGateway {
   }
 
   @override
-  Future<List<MovieSnapshotEntity>> getMoviesSnapshot() {
-    // TODO: implement getMoviesSnapshot
-    throw UnimplementedError();
+  Future<List<MovieSnapshotEntity>> getMoviesSnapshot() async {
+    try {
+      final result = await _baseHttpClient.getAsync("");
+      if (result.statusCode != 200) {
+        throw GetMoviesSnapshotException(StackTrace.current, 'MovieGateway.getMoviesSnapshot', "StatusCode =! 200");
+      }
+      return (result.data as List).map((movieSnapshot) => MovieSnapshotEntityMapper.fromJson(movieSnapshot)).toList();
+    } catch (exception, stacktrace) {
+      throw GetMoviesSnapshotException(stacktrace, 'MovieGateway.getMoviesSnapshot', exception);
+    }
   }
 }
