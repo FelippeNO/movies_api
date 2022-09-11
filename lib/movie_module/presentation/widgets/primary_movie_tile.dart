@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../core_module/network/fakes_url.dart';
+import '../../../core_module/nav/core_navigator.dart';
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/shadows.dart';
 import 'package:flutter/material.dart';
@@ -47,11 +47,14 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final CoreController coreController = CoreController();
+    // final CoreController coreController = CoreController();
     final DateTime releaseDateParsed = DateTime.parse(widget.releaseDate);
     final String releaseDateFormatted = DateFormat.yMMMd().format(releaseDateParsed);
     return GestureDetector(
-      onTap: () => {coreController.handleMovieTap(context, widget.id, widget.index), scaleUpScaleDownTile()},
+      onTap: () {
+        print("foi");
+        CoreNavigator.movie.goToDetailedView(movieId: 111);
+      },
       child: ScaleTransition(
         scale: animationController,
         child: Container(
@@ -67,13 +70,14 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ListTile(
-                onTap: () => {coreController.handleMovieTap(context, widget.id, widget.index), scaleUpScaleDownTile()},
+                onTap: () => {
+                  // coreController.handleMovieTap(context, widget.id, widget.index), scaleUpScaleDownTile()
+                },
                 enableFeedback: true,
                 trailing: SizedBox(
                   width: Scale.width(10),
                   child: CachedNetworkImage(
-                    errorWidget: (context, url, error) =>
-                        Center(child: CachedNetworkImage(imageUrl: FakesUrl.fakeUrls[widget.index])),
+                    errorWidget: (context, url, error) => Center(child: CachedNetworkImage(imageUrl: widget.posterUrl)),
                     imageUrl: widget.posterUrl,
                     fit: BoxFit.cover,
                   ),

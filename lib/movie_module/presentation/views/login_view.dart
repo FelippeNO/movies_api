@@ -1,3 +1,5 @@
+import 'package:desafio_tokenlab/core_module/nav/core_navigator.dart';
+
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';
 import '../../data/gateways/movie_gateway.dart';
@@ -17,7 +19,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-    CoreGateway.connectionState();
   }
 
   @override
@@ -60,10 +61,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 LoginButton(
                   text: "Login",
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeView()),
-                  ),
+                  onPressed: () => CoreNavigator.movie.goToHomeView(),
                 ),
               ],
             ),
