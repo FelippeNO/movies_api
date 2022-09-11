@@ -29,7 +29,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("BUILDOU 1");
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: RoundedPrimaryAppBar(

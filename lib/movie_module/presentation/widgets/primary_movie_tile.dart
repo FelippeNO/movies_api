@@ -41,18 +41,12 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
         AnimationController(vsync: this, duration: const Duration(milliseconds: 50), lowerBound: 1, upperBound: 1.05);
   }
 
-  Future<void> scaleUpScaleDownTile() async =>
-      animationController.forward().then((value) => animationController.reverse());
-
   @override
   Widget build(BuildContext context) {
-    // final CoreController coreController = CoreController();
     final DateTime releaseDateParsed = DateTime.parse(widget.releaseDate);
     final String releaseDateFormatted = DateFormat.yMMMd().format(releaseDateParsed);
     return GestureDetector(
-      onTap: () {
-        CoreNavigator.movie.goToDetailedView(movieId: widget.id);
-      },
+      onTap: () => CoreNavigator.movie.goToDetailedView(movieId: widget.id),
       child: ScaleTransition(
         scale: animationController,
         child: Container(
@@ -68,9 +62,7 @@ class _PrimaryMovieTileState extends State<PrimaryMovieTile> with TickerProvider
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ListTile(
-                onTap: () => {
-                  // coreController.handleMovieTap(context, widget.id, widget.index), scaleUpScaleDownTile()
-                },
+                onTap: () => CoreNavigator.movie.goToDetailedView(movieId: widget.id),
                 enableFeedback: true,
                 trailing: SizedBox(
                   width: Scale.width(10),

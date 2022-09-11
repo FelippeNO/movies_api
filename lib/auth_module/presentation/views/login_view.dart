@@ -1,13 +1,11 @@
 import 'package:desafio_tokenlab/core_module/nav/core_navigator.dart';
-import 'package:hive/hive.dart';
 
 import '../../../core_module/ui/colors.dart';
 import '../../../core_module/ui/scale.dart';
-import '../../data/gateways/movie_gateway.dart';
+import "package:flutter/material.dart";
+
 import '../widgets/app_text_field.dart';
 import '../widgets/login_button.dart';
-import 'home_view.dart';
-import "package:flutter/material.dart";
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -64,12 +62,6 @@ class _LoginViewState extends State<LoginView> {
                   text: "Login",
                   onPressed: () async {
                     CoreNavigator.movie.goToHomeView();
-                    //  var box2 = Hive.box('xxx');
-                    //box2.put("oi", "amor");
-                    //   print(box2.get("oi"));
-                    // box3.put("a", "b");
-                    // print(box2.get("a"));
-                    // print(fasdf);
                   },
                 ),
               ],
